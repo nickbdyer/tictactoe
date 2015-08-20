@@ -37,6 +37,11 @@ describe Board do
     expect(board.available_cells).to eq [4, 5, 6, 7, 8]
   end
 
+  it "knows if there is a winner" do
+    (0..2).each { |cell| board.mark(cell) }
+    expect(board).to have_a_winner
+  end
+
   
 
 end

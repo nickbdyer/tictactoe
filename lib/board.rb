@@ -27,7 +27,25 @@ class Board
    (0..8).to_a.keep_if { |cell| can_mark?(cell) }
   end
 
+  def has_a_winner?
+    p rows
+    p columns
+  end
+
   private
+
+  def rows
+    @grid.each_slice(3).to_a
+  end
+
+  def columns
+    rows.transpose
+  end
+
+  def diagonals
+    [] << 
+    
+  end
 
   def create_grid(content, size)
     size.times { @grid << content.new }
