@@ -17,4 +17,12 @@ describe Game do
     game.add_player(player2)
     expect(game).to have_two_players
   end
+
+  it "knows whos turn it is" do
+    game = Game.new
+    game.add_player(player1)
+    game.add_player(player2)
+    expect(game.turn).to eq player1
+  end
+
 end
