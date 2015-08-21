@@ -24,17 +24,24 @@ class Board
   end
 
   def available_cells
-   (0..8).to_a.keep_if { |cell| can_mark?(cell) }
+    (0..8).to_a.keep_if { |cell| can_mark?(cell) }
   end
 
   def has_a_winner?
-    p rows
-    p columns
-    p "00000000000000000"
-    p diagonals
+    interpolate_markings.any? do |group| 
+      group.uniq == (["X"] || ["O"])
+    end
   end
 
   private
+
+  def interpolate_markings
+    possible_groups = rows + columns + diagonals
+    possible_groups.each do |group|
+      group.map! { |element| element.content }
+    end
+    possible_groups
+  end
 
   def rows
     @grid.each_slice(3).to_a

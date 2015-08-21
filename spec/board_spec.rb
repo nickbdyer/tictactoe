@@ -42,6 +42,11 @@ describe Board do
     expect(board).to have_a_winner
   end
 
+  it "knows if there is not a winner" do
+    [0,1,4].each { |cell| board.mark(cell) }
+    expect(board).not_to have_a_winner
+  end
+
   
 
 end
