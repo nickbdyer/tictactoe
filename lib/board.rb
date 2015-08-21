@@ -30,6 +30,8 @@ class Board
   def has_a_winner?
     p rows
     p columns
+    p "00000000000000000"
+    p diagonals
   end
 
   private
@@ -43,8 +45,7 @@ class Board
   end
 
   def diagonals
-    [] << 
-    
+    [] << (0..2).collect { |i| rows[i][i] } << (0..2).collect { |i| rows[i].reverse[i] }
   end
 
   def create_grid(content, size)
