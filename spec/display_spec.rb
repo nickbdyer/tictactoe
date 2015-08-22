@@ -3,6 +3,7 @@ require 'display'
 describe Display do
 
   let(:game) { double :game, grid: [ nil, "X", "X", "O", nil, "O", "X", "O", "X"] }
+  let(:player1) { double :player, name: "Nick"}
   let(:display) { Display.new }
 
   it "can show the board (test works, but is a bit fudged)" do
@@ -19,6 +20,10 @@ describe Display do
 
   it "can ask for a players name" do
     expect{display.name_query(1)}.to output("Player 1, what is your name?\n").to_stdout
+  end
+
+  it "can ask for player ones choice of mark" do
+    expect{display.mark_query(player1)}.to output("Nick, what mark would you like to play as?\n1. X\n2. O\n").to_stdout
   end
 
 end
