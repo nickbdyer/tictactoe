@@ -7,8 +7,8 @@ class Board
     create_grid(content, size)
   end
 
-  def mark(cell, player)
-    @grid[cell].content = player.symbol
+  def mark(cell, symbol)
+    @grid[cell].content = symbol
   end
 
   def empty?
