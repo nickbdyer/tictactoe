@@ -30,4 +30,13 @@ class Display
     puts "2. O"
   end
 
+  def prompt_selection(player)
+    puts "#{player.name}, it's your move, choose a cell from 1-9"
+  end
+
+  def announce_winner(player)
+    puts "#{player.name} is the winner."
+    puts "If you'd like to play again type 'y', or any other letter to quit."
+  end
+
 end
