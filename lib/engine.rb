@@ -8,13 +8,13 @@ class Engine
   def start
     print_introduction
     assign_symbol(@game.player1)
-    play_game
+    play_game if @game.ready?
   end
 
   def restart
     @game.reset
     @display.introduction
-    play_game
+    play_game if @game.ready?
   end
 
   def play_game

@@ -19,8 +19,8 @@ class Board
     @grid.all? { |cell| cell.content != nil }
   end
 
-  def can_mark?(cell)
-    @grid[cell].content == nil
+  def can_mark?(cell_index)
+    @grid[cell_index].content == nil
   end
 
   def available_cells
@@ -28,7 +28,7 @@ class Board
   end
 
   def has_a_winner?
-    interpolate_markings.any? do |group| 
+    possible_combinations.any? do |group| 
       group.uniq == (["X"] || ["O"])
     end
   end
@@ -39,12 +39,12 @@ class Board
 
   private
 
-  def interpolate_markings
-    possible_groups = rows + columns + diagonals
-    possible_groups.each do |group|
+  def possible_combinations
+    groups = rows + columns + diagonals
+    groups.each do |group|
       group.map! { |element| element.content }
     end
-    possible_groups
+    groups
   end
 
   def rows
@@ -56,7 +56,15 @@ class Board
   end
 
   def diagonals
-    [] << (0..2).collect { |i| rows[i][i] } << (0..2).collect { |i| rows[i].reverse[i] }
+    [] << left_to_right_diagonal << right_to_left_diagonal
+  end
+
+  def left_to_right_diagonal
+    (0..2).collect { |i| rows[i][i] } 
+  end
+
+  def right_to_left_diagonal
+    (0..2).collect { |i| rows[i].reverse[i] }
   end
 
   def create_grid(content, size)
