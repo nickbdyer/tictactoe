@@ -29,8 +29,6 @@ class Engine
     gets.chomp == "y" ? restart : exit(0)
   end
 
-  private
-
   def print_introduction
     @display.introduction
     puts ""
