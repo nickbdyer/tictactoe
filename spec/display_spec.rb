@@ -7,7 +7,7 @@ describe Display do
   let(:display) { Display.new }
 
   it "can show a welcome message" do
-    expect{display.introduction}.to output("-------Welcome to TicTacToe-------\n").to_stdout
+    expect{display.introduction}.to output("**********************************\n-------Welcome to TicTacToe-------\n**********************************\n").to_stdout
   end
 
   it "can show a game choice message" do
@@ -28,6 +28,10 @@ describe Display do
 
   it "can announce the winner" do
     expect{display.announce_winner(game.winner)}.to output("Nick is the winner.\nIf you'd like to play again type 'y', or any other letter to quit.\n").to_stdout
+  end
+
+  it "can announce a draw" do
+    expect{display.announce_draw}.to output("It is a draw!\nIf you'd like to play again type 'y', or any other letter to quit.\n").to_stdout
   end
     
 

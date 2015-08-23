@@ -10,7 +10,9 @@ class Display
   end
 
   def introduction
+    puts "**********************************"
     puts "-------Welcome to TicTacToe-------"
+    puts "**********************************"
   end
 
   def choose_game
@@ -36,6 +38,11 @@ class Display
 
   def announce_winner(player)
     puts "#{player.name} is the winner."
+    puts "If you'd like to play again type 'y', or any other letter to quit."
+  end
+
+  def announce_draw
+    puts "It is a draw!"
     puts "If you'd like to play again type 'y', or any other letter to quit."
   end
 

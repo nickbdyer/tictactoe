@@ -23,6 +23,12 @@ describe Board do
     expect(board.empty?).to be true
   end
 
+  it "can be cleared" do
+    (0..3).each { |cell| board.mark(cell, player1.symbol) }
+    board.clear
+    expect(board.empty?).to be true
+  end
+
   it "knows when the board is full" do
     (0..8).each { |num| board.mark(num, player1.symbol) }
     expect(board.full?).to be true
@@ -44,6 +50,11 @@ describe Board do
   end
 
   it "knows if there is not a winner" do
+    [0,1,4].each { |cell| board.mark(cell, player1.symbol) }
+    expect(board).not_to have_a_winner
+  end
+
+  it "knows if there is a draw" do
     [0,1,4].each { |cell| board.mark(cell, player1.symbol) }
     expect(board).not_to have_a_winner
   end

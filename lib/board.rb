@@ -12,11 +12,11 @@ class Board
   end
 
   def empty?
-    @grid.any? { |cell| cell.content == nil }
+    @grid.all? { |cell| cell.content == nil }
   end
 
   def full?
-    @grid.any? { |cell| cell.content != nil }
+    @grid.all? { |cell| cell.content != nil }
   end
 
   def can_mark?(cell)
@@ -31,6 +31,10 @@ class Board
     interpolate_markings.any? do |group| 
       group.uniq == (["X"] || ["O"])
     end
+  end
+
+  def clear
+    @grid.each { |cell| cell.content = nil }
   end
 
   private

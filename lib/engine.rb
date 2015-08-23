@@ -8,12 +8,25 @@ class Engine
   def start
     print_introduction
     assign_symbol(@game.player1)
+    play_game
+  end
+
+  def restart
+    @game.reset
+    @display.introduction
+    play_game
+  end
+
+  def play_game
     @display.show(@game.board)
     while !@game.has_a_winner? && @game.num_available_moves > 0 do
       @display.prompt_selection(@game.turn)
       @game.mark((gets.chomp.to_i - 1), @game.turn)
       @display.show(@game.board)
     end
+    @display.announce_winner(@game.opponent) if @game.has_a_winner?
+    @display.announce_draw if @game.num_available_moves == 0
+    gets.chomp == "y" ? restart : exit(0)
   end
 
   private

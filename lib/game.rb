@@ -37,6 +37,10 @@ class Game
     @board.available_cells.length
   end
 
+  def reset
+    @board.clear
+  end
+
   private
 
   def switch_players

@@ -34,6 +34,14 @@ describe Game do
     game.mark(3, player1)
   end
 
+  it "can be reset" do
+    add_two_players
+    allow(board).to receive(:mark).with(0, "X")
+    game.mark(0, player1)
+    expect(board).to receive(:clear)
+    game.reset
+  end
+
 
   context "at the beginning of the game" do
 
