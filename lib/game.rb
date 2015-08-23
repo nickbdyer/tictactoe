@@ -33,6 +33,10 @@ class Game
     @board.has_a_winner?
   end
 
+  def draw?
+    @board.full? && !@board.has_a_winner?
+  end
+
   def num_available_moves
     @board.available_cells.length
   end
