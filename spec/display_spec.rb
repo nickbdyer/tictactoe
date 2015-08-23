@@ -2,13 +2,9 @@ require 'display'
 
 describe Display do
 
-  let(:game) { double :game, grid: [ nil, "X", "X", "O", nil, "O", "X", "O", "X"], turn: player1, winner: player1 }
+  let(:game) { double :game, turn: player1, winner: player1 }
   let(:player1) { double :player, name: "Nick"}
   let(:display) { Display.new }
-
-  it "can show the board (test works, but is a bit fudged)" do
-  expect{display.show(game)}.to output("   | X | X \n---|---|---\n O |   | O \n---|---|---\n X | O | X \n").to_stdout
-  end
 
   it "can show a welcome message" do
     expect{display.introduction}.to output("-------Welcome to TicTacToe-------\n").to_stdout

@@ -8,7 +8,7 @@ class Board
   end
 
   def mark(cell, symbol)
-    @grid[cell].content = symbol
+    @grid[cell].content = symbol if can_mark?(cell)
   end
 
   def empty?

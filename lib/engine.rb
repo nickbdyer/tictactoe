@@ -7,11 +7,13 @@ class Engine
 
   def start
     print_introduction
-
-    #while !@game.has_a_winner? && @game.available_moves > 0 do
-      #prompt_selection(@game.turn)
-      #@board.mark(gets.chomp, @game.turn.mark)
-    #end
+    assign_symbol(@game.player1)
+    @display.show(@game.board)
+    while !@game.has_a_winner? && @game.num_available_moves > 0 do
+      @display.prompt_selection(@game.turn)
+      @game.mark((gets.chomp.to_i - 1), @game.turn)
+      @display.show(@game.board)
+    end
   end
 
   private
@@ -32,6 +34,12 @@ class Engine
     when "3"
       2.times{ @game.add_player(Computer.new) }
     end
+  end
+
+  def assign_symbol(player)
+    @display.mark_query(player)
+    @game.player1.symbol = gets.chomp == "1" ? "X" : "O"
+    @game.player2.symbol = @game.player1.symbol == "O" ? "X" : "O"
   end
 
   def assign_name(player_number)

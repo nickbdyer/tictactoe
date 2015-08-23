@@ -29,6 +29,14 @@ class Game
     switch_players
   end
 
+  def has_a_winner?
+    @board.has_a_winner?
+  end
+
+  def num_available_moves
+    @board.available_cells.length
+  end
+
   private
 
   def switch_players

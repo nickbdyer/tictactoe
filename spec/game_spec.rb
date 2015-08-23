@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Game do
 
-  let(:board)   { double :board }
+  let(:board)   { double :board, has_a_winner?: true, available_cells: [3, 4, 5, 6, 7, 8] }
   let(:player1) { double :player, symbol: "X" }
   let(:player2) { double :computer, symbol: "O" }
   let(:game) { Game.new(board) }
@@ -58,6 +58,28 @@ describe Game do
       allow(board).to receive(:mark).with(3, "X")
       game.mark(3, player1)
       expect(game.opponent).to be player1
+    end
+
+    it "knowns when there is a winner" do
+      add_two_players
+      allow(board).to receive(:mark).with(0, "X")
+      game.mark(0, player1)
+      allow(board).to receive(:mark).with(1, "X")
+      game.mark(1, player1)
+      allow(board).to receive(:mark).with(2, "X")
+      game.mark(2, player1)
+      expect(game).to have_a_winner
+    end
+
+    it "knows how many available cells there are" do
+      add_two_players
+      allow(board).to receive(:mark).with(0, "X")
+      game.mark(0, player1)
+      allow(board).to receive(:mark).with(1, "X")
+      game.mark(1, player1)
+      allow(board).to receive(:mark).with(2, "X")
+      game.mark(2, player1)
+      expect(game.num_available_moves).to eq 6
     end
 
   end
