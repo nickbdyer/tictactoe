@@ -25,6 +25,9 @@ class Game
   end
 
   def mark(position, player)
+    begin
+    rescue
+    end
     @board.mark(position, player.symbol)
     switch_players
   end

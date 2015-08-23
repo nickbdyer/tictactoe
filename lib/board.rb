@@ -8,7 +8,8 @@ class Board
   end
 
   def mark(cell, symbol)
-    @grid[cell].content = symbol if can_mark?(cell)
+    raise RuntimeError.new("You are an idiot.") unless can_mark?(cell)
+    @grid[cell].content = symbol
   end
 
   def empty?
