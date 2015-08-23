@@ -1,6 +1,7 @@
 class Game
 
   attr_reader :player1, :player2, :board
+  attr_writer :turn
 
   def initialize(board)
     @player1, @player2 = nil, nil
@@ -16,7 +17,7 @@ class Game
   end
 
   def turn
-    turn ||= @player1
+    @turn ||= @player1
   end
 
   def opponent
@@ -25,7 +26,13 @@ class Game
 
   def mark(position, player)
     @board.mark(position, player.symbol)
-    turn = opponent
+    switch_players
+  end
+
+  private
+
+  def switch_players
+    turn == @player1 ? @turn = @player2 : @turn = @player1
   end
 
 end

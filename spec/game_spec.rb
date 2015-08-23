@@ -44,7 +44,7 @@ describe Game do
 
   end
 
-  context "during the game" do
+  context "during play" do
 
     it "knows whos turn it is" do
       add_two_players
