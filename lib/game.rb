@@ -37,10 +37,6 @@ class Game
     @board.full? && !@board.has_a_winner?
   end
 
-  def num_available_moves
-    @board.available_cells.length
-  end
-
   def reset
     @board.clear
   end
