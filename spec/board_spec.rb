@@ -4,7 +4,8 @@ require 'cell'
 describe Board do
 
   let(:board) { Board.new(Cell, 9) }
-  let(:player1) { double :player1, symbol: "X" }
+  let(:player1) { double :player, symbol: "X" }
+  let(:player2) { double :player, symbol: "O" }
 
   it "can be initialized a size" do
     expect(board.grid.length).to eq 9
@@ -52,6 +53,11 @@ describe Board do
     (0..3).each { |cell| board.mark(cell, player1.symbol) }
     board.clear
     expect(board.empty?).to be true
+  end
+
+  it "can raise an error if a marking is not valid" do
+    board.mark(0, player1.symbol)
+    expect{board.mark(0, player2.symbol)}.to raise_error(RuntimeError, "You are an idiot.")
   end
 
 end
