@@ -44,7 +44,6 @@ class Board
     groups.each do |group|
       group.map! { |element| element.content }
     end
-    groups
   end
 
   def rows
