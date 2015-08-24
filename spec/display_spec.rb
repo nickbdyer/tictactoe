@@ -35,7 +35,7 @@ describe Display do
   end
 
   it "can announce that the ai has played" do
-    expect{display.announce_ai_played}.to output("The AI has played.").to_stdout
+    expect{display.announce_ai_played}.to output("The AI has played.\n").to_stdout
   end
 
 end

@@ -25,9 +25,6 @@ class Game
   end
 
   def mark(position, player)
-    begin
-    rescue
-    end
     @board.mark(position, player.symbol)
     switch_players
   end
@@ -42,6 +39,10 @@ class Game
 
   def reset
     @board.clear
+  end
+
+  def validate_move(position)
+    @board.can_mark?(position)
   end
 
   private

@@ -50,4 +50,8 @@ class Display
     puts "The AI has played."
   end
 
+  def bad_move
+    puts "This square is already taken."
+  end
+
 end

@@ -56,6 +56,11 @@ describe Game do
 
   context "during play" do
 
+    it "knows if a move is valid" do
+      allow(board).to receive(:can_mark?).with(1).and_return(false)
+      expect(game.validate_move(1)).to be false
+    end
+
     it "knows whos turn it is" do
       add_two_players
       allow(board).to receive(:mark).with(3, "X")

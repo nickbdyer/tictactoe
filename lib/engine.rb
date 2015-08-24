@@ -21,7 +21,7 @@ class Engine
     @display.show(@game.board)
     while !@game.has_a_winner? && !@game.draw? do
       @display.prompt_selection(@game.turn)
-      @game.mark((gets.chomp.to_i - 1), @game.turn)
+      process_mark(gets.chomp.to_i - 1)
       @display.show(@game.board)
     end
     @display.announce_winner(@game.opponent) if @game.has_a_winner?
@@ -56,6 +56,10 @@ class Engine
   def assign_name(player_number)
     @display.name_query(player_number)
     @game.public_send("player#{player_number}").name = gets.chomp
+  end
+
+  def process_mark(position)
+    @game.validate_move(position) ? @game.mark(position, @game.turn) : @display.bad_move
   end
 
 end
