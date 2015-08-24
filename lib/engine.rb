@@ -29,6 +29,10 @@ class Engine
     gets.chomp == "y" ? restart : exit(0)
   end
 
+  def process_mark(position)
+    @game.validate_move(position) && position >= 0 ? @game.mark(position, @game.turn) : @display.bad_move
+  end
+
   def print_introduction
     @display.introduction
     puts ""
@@ -57,9 +61,4 @@ class Engine
     @display.name_query(player_number)
     @game.public_send("player#{player_number}").name = gets.chomp
   end
-
-  def process_mark(position)
-    @game.validate_move(position) ? @game.mark(position, @game.turn) : @display.bad_move
-  end
-
 end

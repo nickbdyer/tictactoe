@@ -51,7 +51,7 @@ class Display
   end
 
   def bad_move
-    puts "This square is already taken."
+    puts "Please enter a valid position."
   end
 
 end

@@ -12,14 +12,19 @@ describe Engine do
   let(:game) { Game.new(board) }
   let(:player1) { Player.new }
   let(:player2) { Player.new }
+  let(:engine) { Engine.new(game, display) }
 
-  it "can ignore an invalid move, and prompt for a new selection" do
+  def setup_two_player_game
     game.add_player(player1)
     game.add_player(player2)
     player1.symbol = "X"
-    engine = Engine.new(game, display)
-    game.mark(1, game.turn)
-    expect{engine.process_mark(1)}.to output("This square is already taken.\n").to_stdout
+    player2.symbol = "O"
+  end
+
+  it "can ignore an invalid move, and prompt for a new selection" do
+    setup_two_player_game
+    engine.process_mark(1)
+    expect{engine.process_mark(1)}.to output("Please enter a valid position.\n").to_stdout
     expect(game.turn).to eq player2
   end
 
