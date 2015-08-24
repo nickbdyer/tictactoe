@@ -19,7 +19,6 @@ describe Engine do
     player1.symbol = "X"
     engine = Engine.new(game, display)
     game.mark(1, game.turn)
-    p board.grid
     expect{engine.process_mark(1)}.to output("This square is already taken.\n").to_stdout
     expect(game.turn).to eq player2
   end
