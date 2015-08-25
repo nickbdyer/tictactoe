@@ -28,4 +28,12 @@ describe Engine do
     expect(game.turn).to eq player2
   end
 
+  it "can reset the game" do
+    setup_two_player_game
+    engine.process_mark(1)
+    expect(board.grid[1].content).to eq "X"
+    engine.restart
+    expect(board.grid[1].content).to eq nil
+  end
+
 end

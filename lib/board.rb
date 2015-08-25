@@ -21,7 +21,7 @@ class Board
   end
 
   def can_mark?(cell_index)
-    @grid[cell_index].content == nil
+    !!@grid[cell_index] && @grid[cell_index].content == nil
   end
 
   def available_cells

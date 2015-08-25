@@ -58,6 +58,7 @@ describe Board do
   it "can raise an error if a marking is not valid" do
     board.mark(0, player1.symbol)
     expect{board.mark(0, player2.symbol)}.to raise_error(RuntimeError, "You are an idiot.")
+    expect{board.mark(15, player2.symbol)}.to raise_error(RuntimeError, "You are an idiot.")
   end
 
 end
