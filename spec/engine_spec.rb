@@ -21,19 +21,56 @@ describe Engine do
     player2.symbol = "O"
   end
 
-  it "can ignore an invalid move, and prompt for a new selection" do
-    setup_two_player_game
-    engine.process_mark(1)
-    expect{engine.process_mark(1)}.to output("Please enter a valid position.\n").to_stdout
-    expect(game.turn).to eq player2
+  before do
+    $stdout = StringIO.new
   end
 
-  it "can reset the game" do
-    setup_two_player_game
-    engine.process_mark(1)
-    expect(board.grid[1].content).to eq "X"
-    engine.restart
-    expect(board.grid[1].content).to eq nil
+  after do
+    $stdin = STDIN
+    $stdout = STDOUT
+  end
+
+  context "during setup" do
+
+    it "can assign a name" do
+      $stdin = StringIO.new("Nick\n")
+      setup_two_player_game
+      engine.assign_name(1)
+      expect(player1.name).to eq "Nick"
+    end
+
+    it "can assign a symbol" do
+      $stdin = StringIO.new("1\n")
+      game.add_player(player1)
+      game.add_player(player2)
+      engine.assign_symbol(player1)
+      expect(player1.symbol).to eq "X"
+      expect(player2.symbol).to eq "O"
+    end
+
+  end
+
+  context "gameplay" do
+
+    it "can play a game" do
+      $stdin = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\ny\n")
+      $stdout = STDOUT
+      engine.start
+      expect(board.grid).to eq "x"
+    end
+
+    it "can ignore an invalid move, and prompt for a new selection" do
+      setup_two_player_game
+      engine.process_mark(1)
+      expect{engine.process_mark(1)}.to output("Please enter a valid position.\n").to_stdout
+      expect(game.turn).to eq player2
+    end
+
+    it "can reset the game" do
+      setup_two_player_game
+      expect(game).to receive(:reset)
+      engine.restart
+    end
   end
 
 end

@@ -30,7 +30,7 @@ class Board
 
   def has_a_winner?
     possible_combinations.any? do |group| 
-      group.uniq == (["X"] || ["O"])
+      group.uniq == ["X"] || group.uniq == ["O"]
     end
   end
 

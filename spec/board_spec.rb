@@ -39,8 +39,13 @@ describe Board do
     expect(board.full?).to be true
   end
 
-  it "knows if there are 3 symbols in a row" do
+  it "knows if there are 3 Xs in a row" do
     (0..2).each { |cell| board.mark(cell, player1.symbol) }
+    expect(board).to have_a_winner
+  end
+
+  it "knows if there are 3 Os in a row" do
+    (0..2).each { |cell| board.mark(cell, player2.symbol) }
     expect(board).to have_a_winner
   end
 
