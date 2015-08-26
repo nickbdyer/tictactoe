@@ -65,11 +65,7 @@ class Engine
   end
 
   def another_round?
-    $stdin.gets.chomp == "y" ? restart : clear_screen
-  end
-
-  def clear_screen
-    $stdout.puts "\e[H\e[2J"
+    $stdin.gets.chomp == "y" ? restart : exit(0)
   end
 
 end

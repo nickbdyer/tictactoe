@@ -49,7 +49,7 @@ describe Engine do
 
     it "can play a game" do
       $stdin = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\nn\n")
-      engine.start
+      expect{ engine.start }.to raise_exception(SystemExit)
       expect(board.grid.map { |cell| cell.content } ).to eq ["X", "X", "X", "O", "O", nil, nil, nil, nil]
     end
 
