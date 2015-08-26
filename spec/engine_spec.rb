@@ -53,10 +53,9 @@ describe Engine do
   context "gameplay" do
 
     it "can play a game" do
-      $stdin = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\ny\n")
-      $stdout = STDOUT
+      $stdin = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\nn\n")
       engine.start
-      expect(board.grid).to eq "x"
+      expect(board.grid.map { |cell| cell.content } ).to eq ["X", "X", "X", "O", "O", nil, nil, nil, nil]
     end
 
     it "can ignore an invalid move, and prompt for a new selection" do

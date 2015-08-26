@@ -67,6 +67,6 @@ class Engine
   end
 
   def clear_screen
-    @stdout.puts "\e[H\e[2J"
+    $stdout.puts "\e[H\e[2J"
   end
 end
