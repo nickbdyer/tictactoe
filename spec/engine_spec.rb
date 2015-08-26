@@ -62,7 +62,6 @@ describe Engine do
 
     it "can reset the game" do
       $stdin = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\ny\n") # "y\n" is yes to playing another game
-      $stdout = STDOUT
       expect(game).to receive(:reset)
       engine.start
     end
