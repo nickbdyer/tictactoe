@@ -25,11 +25,6 @@ describe Engine do
     $stdout = StringIO.new
   end
 
-  after do
-    $stdin = STDIN
-    $stdout = STDOUT
-  end
-
   context "during setup" do
 
     it "can assign a name" do
@@ -66,9 +61,10 @@ describe Engine do
     end
 
     it "can reset the game" do
-      setup_two_player_game
+      $stdin = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\ny\n") # "y\n" is yes to playing another game
+      $stdout = STDOUT
       expect(game).to receive(:reset)
-      engine.restart
+      engine.start
     end
   end
 

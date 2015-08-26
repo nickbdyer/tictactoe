@@ -13,6 +13,8 @@ class Engine
 
   def restart
     @game.reset
+    @display.introduction
+    play_game if @game.ready?
   end
 
   def play_game
@@ -69,4 +71,5 @@ class Engine
   def clear_screen
     $stdout.puts "\e[H\e[2J"
   end
+
 end
