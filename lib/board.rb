@@ -34,6 +34,13 @@ class Board
     end
   end
 
+  def winner
+    possible_combinations.any? do |group|
+      return "X" if group.uniq == ["X"] 
+      return "O" if group.uniq == ["O"] 
+    end
+  end
+
   def clear
     @grid.each { |cell| cell.content = nil }
   end

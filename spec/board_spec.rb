@@ -54,6 +54,16 @@ describe Board do
     expect(board).not_to have_a_winner
   end
 
+  it "knows which is the winning symbol" do
+    (0..2).each { |cell| board.mark(cell, player2.symbol) }
+    expect(board.winner).to eq "O"
+  end
+
+  it "returns nil for winning symbol if no winner" do
+    (0..1).each { |cell| board.mark(cell, player2.symbol) }
+    expect(board.winner).to be false
+  end
+
   it "can be cleared" do
     (0..3).each { |cell| board.mark(cell, player1.symbol) }
     board.clear
