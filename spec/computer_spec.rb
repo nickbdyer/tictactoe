@@ -1,13 +1,29 @@
 require 'computer'
+require 'engine'
+require 'board'
+require 'game'
+require 'display'
+require 'cell'
+require 'player'
 
 describe Computer do
 
   let(:computer) { Computer.new }
-  let(:engine) { double :engine }
+  let(:player) { Player.new }
+  let(:display) { Display.new }
+  let(:board) { Board.new(Cell, 9) }
+  let(:game) { Game.new(board) }
+  let(:engine) { Engine.new(game, display) }
   let(:empty_board) { double :board, available_moves: [0, 1, 2, 3, 4, 5, 6, 7, 8], winner: false, full?: false }
   let(:comp_win_board) { double :board, winner: "X" }
   let(:opponent_win_board) { double :board, winner: "O" }
   let(:draw_board) { double :board, full?: true, winner: false }
+
+  def setup_game
+    game.add_player(computer)
+    game.add_player(player)
+    game.player2.symbol = "O"
+  end
 
   def setup_computer
     computer.engine = engine
@@ -32,6 +48,7 @@ describe Computer do
   end
 
   it "will choose center if playing first" do
+    setup_game
     expect(computer.choose_move).to eq 5
   end
 

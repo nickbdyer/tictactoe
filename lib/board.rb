@@ -45,6 +45,10 @@ class Board
     @grid.each { |cell| cell.content = nil }
   end
 
+  def debug
+    @grid.map { |cell| cell.content }
+  end
+
   private
 
   def possible_combinations

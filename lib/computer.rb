@@ -7,7 +7,7 @@ class Computer
   end
 
   def mark(cell)
-   @engine.process_mark(cell)
+    @engine.process_mark(cell)
   end
 
   def choose_move
@@ -15,22 +15,29 @@ class Computer
     mark(chosen_cell)
   end
 
-  def minimax(node, depth = 6, maximizingPlayer = true)
-    return score(node) if depth == 0 || board.full? || board.has_a_winner?
+  def minimax(board, depth = 9, maximizingPlayer = true)
+    board.debug
+    return score(board) if depth == 0 || board.full? || board.has_a_winner?
     if maximizingPlayer
       bestValue = -10
-      board.available_moves.each do |child|
-        val = minimax(child, depth - 1, false)
+      child_nodes = board.available_cells.dup
+      child_nodes.each do |cell|
+        mark(cell)
+        child_node = board.dup
+        val = minimax(child_node, depth - 1, false)
         bestValue = [bestValue, val].max
-        bestValue
       end
+      bestValue
     else
       bestValue = 10
-      board.available_moves.each do |child|
-        val = minimax(child, depth - 1, true)
+      child_nodes = board.available_cells.dup
+      child_nodes.each do |cell|
+        mark(cell)
+        child_node = board.dup
+        val = minimax(child_node, depth - 1, true)
         bestValue = [bestValue, val].min
-        bestValue
       end
+      bestValue
     end
   end
 
