@@ -18,31 +18,39 @@ class Computer
     return @choice = 4 if @engine.game.board.empty?
     @engine.game.board.available_cells.each do |cell|
       @engine.game.board.mark(cell, @symbol)
-      @choice[cell] = minimax(@engine.game.board, 1, false)
+      @choice[cell] = minimax(@engine.game.board, 1, -10, 10, false)
       @engine.game.board.grid[cell].content = nil
     end
     p @choice
     return @choice.max_by{|k,v| v}.first
   end
 
-  def minimax(board, depth = 0, maximizingPlayer = true)
+  def minimax(board, depth = 0, alpha = -10, beta = 10, maximizingPlayer = true)
     return score(board, depth) if board.full? || board.has_a_winner?
 
     if maximizingPlayer
       bestValue = -10
       board.available_cells.each do |cell|
         board.mark(cell, @symbol)
-        val = minimax(board, depth + 1, false)
+        val = minimax(board, depth + 1, alpha, beta, false)
         board.grid[cell].content = nil
         bestValue = [bestValue, val].max
+        alpha = [alpha, bestValue].max
+        if alpha >= beta
+          break
+        end
       end
     else
       bestValue = 10
       board.available_cells.each do |cell|
         board.mark(cell, opponent_symbol)
-        val = minimax(board, depth + 1, true)
+        val = minimax(board, depth + 1, alpha, beta, true)
         board.grid[cell].content = nil
         bestValue = [bestValue, val].min
+        beta = [beta, bestValue].min
+        if alpha >= beta
+          break
+        end
       end
     end
     bestValue
