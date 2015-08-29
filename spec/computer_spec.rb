@@ -25,6 +25,12 @@ describe Computer do
     game.player2.symbol = "O"
   end
 
+  def setup_game_computer_second
+    game.add_player(player)
+    game.add_player(computer)
+    game.player1.symbol = "O"
+  end
+
   def setup_computer
     computer.engine = engine
     computer.symbol = "X"
@@ -47,7 +53,20 @@ describe Computer do
     computer.mark(3)
   end
 
-  it "will choose center if playing first" do
+  it "will choose center if playing second" do
+    setup_game
+    game.board.grid[0].content = "O"
+    expect(computer.choose_move).to eq 5
+  end
+
+  it "will choose center if playing second" do
+    setup_game
+    game.board.grid[0].content = "O"
+    game.board.grid[2].content = "O"
+    expect(computer.choose_move).to eq 1
+  end
+
+  xit "will choose center if playing first" do
     setup_game
     expect(computer.choose_move).to eq 5
   end
