@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'computer'
 require 'engine'
 require 'board'
@@ -78,6 +79,38 @@ describe Computer do
     game.board.grid[6].content = "X"
     game.board.grid[7].content = "X"
     game.board.grid[8].content = "O"
+    expect(computer.choose_move).to eq 2
+  end
+
+  it "will prevent diagonal fork" do
+    setup_game
+    game.board.grid[0].content = "X"
+    game.board.grid[4].content = "O"
+    game.board.grid[8].content = "O"
+    expect(computer.choose_move).to eq 2
+  end
+
+  it "will prevent another diagonal fork" do
+    setup_game
+    game.board.grid[0].content = "O"
+    game.board.grid[5].content = "X"
+    game.board.grid[8].content = "O"
+    expect(computer.choose_move).to eq 4
+  end
+
+  it "will prevent edge trap" do
+    setup_game
+    game.board.grid[1].content = "O"
+    game.board.grid[3].content = "O"
+    game.board.grid[4].content = "X"
+    expect(computer.choose_move).to eq 0
+  end
+ 
+  it "will prevent reverse edge trap" do
+    setup_game
+    game.board.grid[4].content = "X"
+    game.board.grid[5].content = "O"
+    game.board.grid[7].content = "O"
     expect(computer.choose_move).to eq 2
   end
 
