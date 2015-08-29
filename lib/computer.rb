@@ -15,39 +15,42 @@ class Computer
   end
 
   def choose_move
-    minimax(@engine.game.board)
-    @choice.max_by{|k,v| v }.first
+    return @choice = 4 if @engine.game.board.empty?
+    @engine.game.board.available_cells.each do |cell|
+      @engine.game.board.mark(cell, @symbol)
+      @choice[cell] = minimax(@engine.game.board, 1, false)
+      @engine.game.board.grid[cell].content = nil
+    end
+    p @choice
+    return @choice.max_by{|k,v| v}.first
   end
 
-  def minimax(board, depth = 9, maximizingPlayer = true)
-    return score(board) if board.full? || board.has_a_winner?
+  def minimax(board, depth = 0, maximizingPlayer = true)
+    return score(board, depth) if board.full? || board.has_a_winner?
 
     if maximizingPlayer
       bestValue = -10
       board.available_cells.each do |cell|
         board.mark(cell, @symbol)
-        val = minimax(board, depth - 1, false)
-        bestValue = [bestValue, val].max
+        val = minimax(board, depth + 1, false)
         board.grid[cell].content = nil
-        @choice[cell] = bestValue
+        bestValue = [bestValue, val].max
       end
-      bestValue
     else
       bestValue = 10
       board.available_cells.each do |cell|
         board.mark(cell, opponent_symbol)
-        val = minimax(board, depth - 1, true)
-        bestValue = [bestValue, val].min
+        val = minimax(board, depth + 1, true)
         board.grid[cell].content = nil
-        @choice[cell] = bestValue
+        bestValue = [bestValue, val].min
       end
-      bestValue
     end
+    bestValue
   end
 
-  def score(board)
-    return 10 if board.winner == @symbol
-    return -10 if board.winner == opponent_symbol
+  def score(board, depth)
+    return (10.0 / depth) if board.winner == @symbol
+    return (-10.0 / depth) if board.winner == opponent_symbol
     return 0 if board.full?
   end
 

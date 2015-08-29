@@ -53,22 +53,32 @@ describe Computer do
     computer.mark(3)
   end
 
-  it "will choose center if playing second" do
+  it "will choose center if playing first" do
     setup_game
-    game.board.grid[0].content = "O"
-    expect(computer.choose_move).to eq 5
+    expect(computer.choose_move).to eq 4
   end
 
-  it "will choose center if playing second" do
+  it "will play center if first player didn't" do
     setup_game
     game.board.grid[0].content = "O"
-    game.board.grid[2].content = "O"
+    expect(computer.choose_move).to eq 4
+  end
+
+  it "will win game if option is available" do
+    setup_game
+    game.board.grid[0].content = "X"
+    game.board.grid[2].content = "X"
     expect(computer.choose_move).to eq 1
   end
 
-  xit "will choose center if playing first" do
+  it "will stop win game if option is available" do
     setup_game
-    expect(computer.choose_move).to eq 5
+    game.board.grid[1].content = "O"
+    game.board.grid[5].content = "O"
+    game.board.grid[6].content = "X"
+    game.board.grid[7].content = "X"
+    game.board.grid[8].content = "O"
+    expect(computer.choose_move).to eq 2
   end
 
   it "knows what the opponents symbol is" do
@@ -76,15 +86,15 @@ describe Computer do
   end
 
   it "will score a board with 10 if it wins" do
-    expect(computer.score(comp_win_board)).to eq 10
+    expect(computer.score(comp_win_board, 1)).to eq 10
   end
 
   it "will score a board with -10 if it loses" do
-    expect(computer.score(opponent_win_board)).to eq -10
+    expect(computer.score(opponent_win_board, 1)).to eq -10
   end
 
   it "will score a board with 0 if it is a draw" do
-    expect(computer.score(draw_board)).to eq 0
+    expect(computer.score(draw_board, 0)).to eq 0
   end
 
 end
