@@ -23,7 +23,11 @@ class Engine
     @display.show(@game.board)
     while !@game.has_a_winner? && !@game.draw? do
       @display.prompt_selection(@game.turn)
-      process_mark($stdin.gets.chomp.to_i - 1)
+      if @game.turn.class == Player
+        process_mark($stdin.gets.chomp.to_i - 1)
+      else
+        @game.turn.choose_move
+      end
       @display.show(@game.board)
       if (@game.has_a_winner? || @game.draw?)
         @display.announce_winner(@game.opponent) if @game.has_a_winner?
@@ -49,9 +53,15 @@ class Engine
     when "2"
       @game.add_player(Player.new)
       @game.add_player(Computer.new)
+      @game.player2.name = "Tron"
+      @game.player2.engine = self
       assign_name(1)
     when "3"
       2.times{ @game.add_player(Computer.new) }
+      @game.player1.name = "Tron"
+      @game.player2.name = "Hal"
+      @game.player1.engine = self
+      @game.player2.engine = self
     end
   end
 

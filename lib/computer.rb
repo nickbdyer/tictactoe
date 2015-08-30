@@ -1,6 +1,6 @@
 class Computer
 
-  attr_accessor :symbol, :engine
+  attr_accessor :symbol, :engine, :name
 
   def opponent_symbol
     @symbol == "X" ? "O" : "X"
@@ -11,8 +11,8 @@ class Computer
   end
 
   def choose_move
-    return 4 if @engine.game.board.empty?
-    evaluate_moves.max_by{|k,v| v}.first
+    return mark(4) if @engine.game.board.empty?
+    mark(evaluate_moves.max_by{|k,v| v}.first)
   end
 
   def evaluate_moves
