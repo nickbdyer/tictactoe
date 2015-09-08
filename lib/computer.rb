@@ -4,6 +4,7 @@ class Computer
 
   def initialize
     @scored_moves = {}
+    @scored_moves_ab = {}
   end
 
   def opponent_symbol
@@ -17,7 +18,27 @@ class Computer
   def choose_move
     return 4 if @engine.game.board.empty?
     minimax(@engine.game.board)
+    alphabeta(@engine.game.board)
+    p @scored_moves
+    p @scored_moves_ab
     @scored_moves.max_by{|k,v| v}.first
+  end
+
+  def alphabeta(board, maximizingPlayer = true, depth = 0, alpha = -10, beta = 10)
+    return score(board, depth) if board.full? || board.has_a_winner?
+    bestValue = maximizingPlayer ? -10 : 10
+    board.available_cells.each do |cell|
+      maximizingPlayer ? board.mark(cell, @symbol) : board.mark(cell, opponent_symbol)
+      val = maximizingPlayer ? alphabeta(board, false, depth + 1) : alphabeta(board, true, depth + 1)
+      board.grid[cell].content = nil
+      bestValue = maximizingPlayer ? [bestValue, val].max : [bestValue, val].min
+      @scored_moves_ab[cell] = bestValue if depth == 0
+      maximizingPlayer ? alpha = [alpha, bestValue].max : beta = [beta, bestValue].min
+      if alpha >= beta
+        break
+      end
+    end
+    bestValue
   end
 
   def minimax(board, depth = 0, alpha = -10, beta = 10, maximizingPlayer = true)
