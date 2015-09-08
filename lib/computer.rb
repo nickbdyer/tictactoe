@@ -2,6 +2,10 @@ class Computer
 
   attr_accessor :symbol, :engine, :name
 
+  def initialize
+    @scored_moves = {}
+  end
+
   def opponent_symbol
     @symbol == "X" ? "O" : "X"
   end
@@ -12,17 +16,8 @@ class Computer
 
   def choose_move
     return 4 if @engine.game.board.empty?
-    evaluate_moves.max_by{|k,v| v}.first
-  end
-
-  def evaluate_moves
-    options = {}
-    @engine.game.board.available_cells.each do |cell|
-      @engine.game.board.mark(cell, @symbol)
-      options[cell] = minimax(@engine.game.board, 1, -10, 10, false)
-      @engine.game.board.grid[cell].content = nil
-    end
-    options
+    minimax(@engine.game.board)
+    @scored_moves.max_by{|k,v| v}.first
   end
 
   def minimax(board, depth = 0, alpha = -10, beta = 10, maximizingPlayer = true)
@@ -34,6 +29,7 @@ class Computer
         val = minimax(board, depth + 1, alpha, beta, false)
         board.grid[cell].content = nil
         bestValue = [bestValue, val].max
+        @scored_moves[cell] = bestValue if depth == 0
         alpha = [alpha, bestValue].max
         if alpha >= beta
           break
@@ -46,6 +42,7 @@ class Computer
         val = minimax(board, depth + 1, alpha, beta, true)
         board.grid[cell].content = nil
         bestValue = [bestValue, val].min
+        @scored_moves[cell] = bestValue if depth == 0
         beta = [beta, bestValue].min
         if alpha >= beta
           break
