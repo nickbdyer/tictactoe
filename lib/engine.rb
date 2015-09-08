@@ -26,7 +26,7 @@ class Engine
       if @game.turn.class == Player
         process_mark($stdin.gets.chomp.to_i - 1)
       else
-        @game.turn.choose_move
+        @game.turn.mark(@game.turn.choose_move)
       end
       @display.show(@game.board)
       if (@game.has_a_winner? || @game.draw?)

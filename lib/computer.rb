@@ -11,8 +11,8 @@ class Computer
   end
 
   def choose_move
-    return mark(4) if @engine.game.board.empty?
-    mark(evaluate_moves.max_by{|k,v| v}.first)
+    return 4 if @engine.game.board.empty?
+    evaluate_moves.max_by{|k,v| v}.first
   end
 
   def evaluate_moves
