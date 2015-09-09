@@ -16,6 +16,7 @@ class Computer
 
   def choose_move
     return 4 if @engine.game.board.empty?
+    @scored_moves = {}
     negamax(@engine.game.board)
     @scored_moves.max_by{|k,v| v}.first
   end
