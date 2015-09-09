@@ -125,18 +125,4 @@ describe Computer do
     expect(computer.score(draw_board, 0)).to eq 0
   end
 
-  it "benchmarks well" do
-    setup_game
-    game.board.grid[0].content = "O"
-    game.board.grid[1].content = "X"
-    game.board.grid[2].content = "O"
-    n = 100
-    Benchmark.bm(15) do |x|
-      x.report("minimax")         { n.times { computer.minimax(engine.game.board) } }
-      x.report("alphabeta")       { n.times { computer.alphabeta(engine.game.board) } }
-      x.report("negamax_ab")      { n.times { computer.negamax(engine.game.board) } }
-      #x.report("negamax_order")   { n.times { computer.negamax_order(engine.game.board)} }
-    end
-  end
-
 end
