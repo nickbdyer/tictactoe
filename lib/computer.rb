@@ -18,7 +18,7 @@ class Computer
     return 4 if @engine.game.board.empty?
     @scored_moves = {}
     negamax(@engine.game.board)
-    @scored_moves.max_by{|k,v| v}.first
+    @scored_moves.max_by(&:last).first
   end
 
   def negamax(board, depth = 0, α = -10, β = 10, color = 1)

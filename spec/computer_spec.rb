@@ -6,7 +6,6 @@ require 'game'
 require 'display'
 require 'cell'
 require 'player'
-require 'benchmark'
 
 describe Computer do
 
@@ -20,17 +19,6 @@ describe Computer do
   let(:comp_win_board) { double :board, winner: "X" }
   let(:opponent_win_board) { double :board, winner: "O" }
   let(:draw_board) { double :board, full?: true, winner: false }
-
-  def setup_game
-    game.add_player(computer)
-    game.add_player(player)
-    game.player2.symbol = "O"
-  end
-
-  def setup_computer
-    computer.engine = engine
-    computer.symbol = "X"
-  end
 
   before do
     setup_computer

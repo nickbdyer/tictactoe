@@ -14,13 +14,6 @@ describe Engine do
   let(:player2) { Player.new }
   let(:engine) { Engine.new(game, display) }
 
-  def setup_two_player_game
-    game.add_player(player1)
-    game.add_player(player2)
-    player1.symbol = "X"
-    player2.symbol = "O"
-  end
-
   before do
     $stdout = StringIO.new
   end

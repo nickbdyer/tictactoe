@@ -10,11 +10,6 @@ describe Game do
   let(:player2) { double :computer, symbol: "O" }
   let(:game) { Game.new(board) }
 
-  def add_two_players
-    game.add_player(player1)
-    game.add_player(player2)
-  end
-
   it "can add a player" do
     game.add_player(player1)
     expect(game.player1).to eq player1
