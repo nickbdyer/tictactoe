@@ -6,6 +6,7 @@ require 'game'
 require 'display'
 require 'cell'
 require 'player'
+require 'benchmark'
 
 describe Computer do
 
@@ -24,12 +25,6 @@ describe Computer do
     game.add_player(computer)
     game.add_player(player)
     game.player2.symbol = "O"
-  end
-
-  def setup_game_computer_second
-    game.add_player(player)
-    game.add_player(computer)
-    game.player1.symbol = "O"
   end
 
   def setup_computer
@@ -128,6 +123,20 @@ describe Computer do
 
   it "will score a board with 0 if it is a draw" do
     expect(computer.score(draw_board, 0)).to eq 0
+  end
+
+  it "benchmarks well" do
+    setup_game
+    game.board.grid[0].content = "O"
+    game.board.grid[1].content = "X"
+    game.board.grid[2].content = "O"
+    n = 100
+    Benchmark.bm(15) do |x|
+      x.report("minimax")         { n.times { computer.minimax(engine.game.board) } }
+      x.report("alphabeta")       { n.times { computer.alphabeta(engine.game.board) } }
+      x.report("negamax_ab")      { n.times { computer.negamax(engine.game.board) } }
+      #x.report("negamax_order")   { n.times { computer.negamax_order(engine.game.board)} }
+    end
   end
 
 end

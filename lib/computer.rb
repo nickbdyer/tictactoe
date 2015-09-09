@@ -26,7 +26,7 @@ class Computer
     return color * score(board, depth) if board.full? || board.has_a_winner?
     bestValue = -10
     board.available_cells.each do |cell|
-      color > 0 ? board.mark(cell, @symbol) : board.mark(cell, opponent_symbol)
+      color == 1 ? board.mark(cell, @symbol) : board.mark(cell, opponent_symbol)
       val = -negamax(board, depth + 1, -β, -α, -color)
       board.grid[cell].content = nil
       bestValue = [bestValue, val].max
@@ -62,8 +62,6 @@ class Computer
     return 0 if board.full?
   end
 
-  private 
-
   def minimax(board, depth = 0, alpha = -10, beta = 10, maximizingPlayer = true)
     return score(board, depth) if board.full? || board.has_a_winner?
     if maximizingPlayer
@@ -96,5 +94,31 @@ class Computer
     bestValue
   end
 
-
 end
+
+#def ordered_available_moves(board, depth, color)
+  #hash = {}
+  #board.available_cells.each do |cell|
+    #color > 0 ? board.mark(cell, @symbol) : board.mark(cell, opponent_symbol)
+    #hash[cell] = score(board,depth).nil? ? color * -10 : score(board,depth)
+    #board.grid[cell].content = nil
+  #end 
+  #color > 1 ?  hash.sort_by(&:last).reverse.map(&:first) : hash.sort_by(&:last).map(&:first)
+#end
+
+#def negamax_order(board, depth = 0, α = -10, β = 10, color = 1)
+  #return color * score(board, depth) if board.full? || board.has_a_winner?
+  #bestValue = -10
+  #ordered_available_moves(board, depth, color).each do |cell|
+    #color > 0 ? board.mark(cell, @symbol) : board.mark(cell, opponent_symbol)
+    #val = -negamax_order(board, depth + 1, -β, -α, -color)
+    #board.grid[cell].content = nil
+    #bestValue = [bestValue, val].max
+    #@scored_moves_neg_order[cell] = bestValue if depth == 0
+    #α = [α, bestValue].max 
+    #if α >= β
+      #break
+    #end
+  #end
+  #bestValue
+#end
