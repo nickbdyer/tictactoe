@@ -21,24 +21,41 @@ class Engine
 
   def play_game
     @display.show(@game.board)
-    while !@game.has_a_winner? && !@game.draw? do
+    until game_over? do
       @display.prompt_selection(@game.turn)
-      if @game.turn.class == Player
-        process_mark($stdin.gets.chomp.to_i - 1)
-      else
-        @game.turn.mark(@game.turn.choose_move)
-      end
+      human_player? ? human_move : computer_move
       @display.show(@game.board)
-      if (@game.has_a_winner? || @game.draw?)
+      if (game_over?)
         @display.announce_winner(@game.opponent) if @game.has_a_winner?
         @display.announce_draw if @game.draw?
-        another_round?
+        another_round_query
       end
     end
   end
 
   def process_mark(position)
-    @game.validate_move(position) && position >= 0 ? @game.mark(position, @game.turn) : @display.bad_move
+    return @display.bad_move unless valid_move?(position)
+    @game.mark(position, @game.turn)
+  end
+
+  def valid_move?(position)
+    @game.validate_move(position) && position >= 0
+  end
+
+  def human_player?
+    @game.turn.class == Player
+  end
+
+  def human_move
+    process_mark($stdin.gets.chomp.to_i - 1) 
+  end
+
+  def game_over?
+    @game.has_a_winner? || @game.draw?
+  end
+
+  def computer_move
+    @game.turn.mark(@game.turn.choose_move)
   end
 
   def print_introduction
@@ -76,7 +93,7 @@ class Engine
     @game.public_send("player#{player_number}").name = $stdin.gets.chomp
   end
 
-  def another_round?
+  def another_round_query
     $stdin.gets.chomp == "y" ? restart : exit(0)
   end
 
