@@ -46,10 +46,6 @@ class Display
     puts "If you'd like to play again type 'y', or any other letter to quit."
   end
 
-  def announce_ai_played
-    puts "The AI has played."
-  end
-
   def bad_move
     puts "Please enter a valid position."
   end

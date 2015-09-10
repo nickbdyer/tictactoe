@@ -34,9 +34,5 @@ describe Display do
     expect{display.announce_draw}.to output("It is a draw!\nIf you'd like to play again type 'y', or any other letter to quit.\n").to_stdout
   end
 
-  it "can announce that the ai has played" do
-    expect{display.announce_ai_played}.to output("The AI has played.\n").to_stdout
-  end
-
 end
 
