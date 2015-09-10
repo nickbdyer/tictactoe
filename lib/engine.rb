@@ -9,8 +9,21 @@ class Engine
 
   def start
     print_introduction
-    assign_symbol(@game.player1)
     play_game if @game.ready?
+  end
+
+  def play_game
+    @display.show(@game.board)
+    until @game.ended? do
+      @display.prompt_selection(@game.turn)
+      human_player? ? human_move : computer_move
+      @display.show(@game.board)
+      if (@game.ended?)
+        @display.announce_winner(@game.opponent) if @game.has_a_winner?
+        @display.announce_draw if @game.draw?
+        another_round_query
+      end
+    end
   end
 
   def restart
@@ -19,27 +32,9 @@ class Engine
     play_game if @game.ready?
   end
 
-  def play_game
-    @display.show(@game.board)
-    until game_over? do
-      @display.prompt_selection(@game.turn)
-      human_player? ? human_move : computer_move
-      @display.show(@game.board)
-      if (game_over?)
-        @display.announce_winner(@game.opponent) if @game.has_a_winner?
-        @display.announce_draw if @game.draw?
-        another_round_query
-      end
-    end
-  end
-
   def process_mark(position)
-    return @display.bad_move unless valid_move?(position)
+    return @display.bad_move unless @game.valid_move?(position)
     @game.mark(position, @game.turn)
-  end
-
-  def valid_move?(position)
-    @game.validate_move(position) && position >= 0
   end
 
   def human_player?
@@ -48,10 +43,6 @@ class Engine
 
   def human_move
     process_mark($stdin.gets.chomp.to_i - 1) 
-  end
-
-  def game_over?
-    @game.has_a_winner? || @game.draw?
   end
 
   def computer_move
@@ -70,23 +61,24 @@ class Engine
     when "3"
       setup_ai_game
     end
+    assign_symbol(@game.player1)
   end
 
   def setup_two_player_game
-      2.times{ @game.add_player(Player.new) }
-      [1,2].each { |player| assign_name(player) }
+    2.times{ @game.add_player(Player.new) }
+    [1,2].each { |player| assign_name(player) }
   end
 
   def setup_one_player_game
-      [Player.new, Computer.new].each { |player| @game.add_player(player) }
-      @game.player2.name, @game.player2.engine = "Tron", self
-      assign_name(1)
+    [Player.new, Computer.new].each { |player| @game.add_player(player) }
+    @game.player2.name, @game.player2.engine = "Tron", self
+    assign_name(1)
   end
 
   def setup_ai_game
-      2.times{ @game.add_player(Computer.new) }
-      @game.player1.name, @game.player2.name = "Tron", "Hal 9000"
-      @game.player1.engine, @game.player2.engine = self, self
+    2.times{ @game.add_player(Computer.new) }
+    @game.player1.name, @game.player2.name = "Tron", "Hal 9000"
+    @game.player1.engine, @game.player2.engine = self, self
   end
 
   def assign_symbol(player)

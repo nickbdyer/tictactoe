@@ -41,8 +41,12 @@ class Game
     @board.clear
   end
 
-  def validate_move(position)
-    @board.can_mark?(position)
+  def ended?
+    has_a_winner? || draw?
+  end
+
+  def valid_move?(position)
+    @board.can_mark?(position) && position >= 0
   end
 
   private

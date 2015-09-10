@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 def setup_game
   game.add_player(computer)
   game.add_player(player)
