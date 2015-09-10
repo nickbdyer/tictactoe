@@ -64,22 +64,29 @@ class Engine
     @display.choose_game
     case $stdin.gets.chomp
     when "1"
-      2.times{ @game.add_player(Player.new) }
-      assign_name(1)
-      assign_name(2)
+      setup_two_player_game
     when "2"
-      @game.add_player(Player.new)
-      @game.add_player(Computer.new)
-      @game.player2.name = "Tron"
-      @game.player2.engine = self
-      assign_name(1)
+      setup_one_player_game
     when "3"
-      2.times{ @game.add_player(Computer.new) }
-      @game.player1.name = "Tron"
-      @game.player2.name = "Hal"
-      @game.player1.engine = self
-      @game.player2.engine = self
+      setup_ai_game
     end
+  end
+
+  def setup_two_player_game
+      2.times{ @game.add_player(Player.new) }
+      [1,2].each { |player| assign_name(player) }
+  end
+
+  def setup_one_player_game
+      [Player.new, Computer.new].each { |player| @game.add_player(player) }
+      @game.player2.name, @game.player2.engine = "Tron", self
+      assign_name(1)
+  end
+
+  def setup_ai_game
+      2.times{ @game.add_player(Computer.new) }
+      @game.player1.name, @game.player2.name = "Tron", "Hal 9000"
+      @game.player1.engine, @game.player2.engine = self, self
   end
 
   def assign_symbol(player)
