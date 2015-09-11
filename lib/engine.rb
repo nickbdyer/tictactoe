@@ -62,6 +62,7 @@ class Engine
       setup_ai_game
     end
     assign_symbol(@game.player1)
+    assign_first_player(@game.turn)
   end
 
   def setup_two_player_game
@@ -85,6 +86,11 @@ class Engine
     @display.mark_query(player)
     @game.player1.symbol = $stdin.gets.chomp == "1" ? "X" : "O"
     @game.player2.symbol = @game.player1.symbol == "O" ? "X" : "O"
+  end
+
+  def assign_first_player(player)
+    @display.starting_player_query(player)
+    @game.turn = $stdin.gets.chomp == "y" ? player : @game.opponent
   end
 
   def assign_name(player_number)

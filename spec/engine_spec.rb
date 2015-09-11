@@ -37,6 +37,14 @@ describe Engine do
       expect(player2.symbol).to eq "O"
     end
 
+    it "can set who plays first" do
+      $stdin = StringIO.new("n\n")
+      game.add_player(player1)
+      game.add_player(player2)
+      engine.assign_first_player(player1)
+      expect(game.turn).to eq player2
+    end
+
   end
 
   context "gameplay" do
