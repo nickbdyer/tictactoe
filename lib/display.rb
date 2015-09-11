@@ -26,6 +26,10 @@ class Display
     puts "Player #{number}, what is your name?"
   end
 
+  def starting_player_query(player)
+    puts "#{player.name}, would you like to play first? (y/n)"
+  end
+
   def mark_query(player)
     puts "#{player.name}, what mark would you like to play as?"
     puts "1. X"

@@ -22,6 +22,10 @@ describe Display do
     expect{display.mark_query(player1)}.to output("Nick, what mark would you like to play as?\n1. X\n2. O\n").to_stdout
   end
 
+  it "can ask for input on who plays first" do
+    expect{display.starting_player_query(player1)}.to output("Nick, would you like to play first? (y/n)\n").to_stdout
+  end
+
   it "prompt a player to play" do
     expect{display.prompt_selection(game.turn)}.to output("Nick, it's your move, choose a cell from 1-9\n").to_stdout
   end
