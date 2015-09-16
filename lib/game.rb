@@ -13,32 +13,32 @@ class Game
   end
 
   def ready?
-    @player1 != nil && @player2 != nil
+    player1 != nil && player2 != nil
   end
 
   def turn
-    @turn ||= @player1
+    @turn ||= player1
   end
 
   def opponent
-    turn == @player1 ? @player2 : @player1
+    turn == player1 ? player2 : player1
   end
 
   def mark(position, player)
-    @board.mark(position, player.symbol)
+    board.mark(position, player.symbol)
     switch_players
   end
 
   def has_a_winner?
-    @board.has_a_winner?
+    board.has_a_winner?
   end
 
   def draw?
-    @board.full? && !@board.has_a_winner?
+    board.full? && !board.has_a_winner?
   end
 
   def reset
-    @board.clear
+    board.clear
   end
 
   def ended?
@@ -46,13 +46,13 @@ class Game
   end
 
   def valid_move?(position)
-    @board.can_mark?(position) && position >= 0
+    board.can_mark?(position) && position >= 0
   end
 
   private
 
   def switch_players
-    turn == @player1 ? @turn = @player2 : @turn = @player1
+    turn == player1 ? @turn = player2 : @turn = player1
   end
 
 end
