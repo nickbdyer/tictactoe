@@ -9,19 +9,19 @@ class Board
 
   def mark(cell, symbol)
     raise RuntimeError.new("You are an idiot.") unless can_mark?(cell)
-    @grid[cell].content = symbol
+    grid[cell].content = symbol
   end
 
   def empty?
-    @grid.all? { |cell| cell.content == nil }
+    grid.all? { |cell| cell.content == nil }
   end
 
   def full?
-    @grid.all? { |cell| cell.content != nil }
+    grid.all? { |cell| cell.content != nil }
   end
 
   def can_mark?(cell_index)
-    !!@grid[cell_index] && @grid[cell_index].content == nil
+    !!grid[cell_index] && grid[cell_index].content == nil
   end
 
   def available_cells
@@ -42,7 +42,7 @@ class Board
   end
 
   def clear
-    @grid.each { |cell| cell.content = nil }
+    grid.each { |cell| cell.content = nil }
   end
 
   private
@@ -55,7 +55,7 @@ class Board
   end
 
   def rows
-    @grid.each_slice(3).to_a
+    grid.each_slice(3).to_a
   end
 
   def columns
@@ -75,8 +75,8 @@ class Board
   end
 
   def create_grid(content, size)
-    size.times { @grid << content.new }
-    @grid
+    size.times { grid << content.new }
+    grid
   end
 
 end
