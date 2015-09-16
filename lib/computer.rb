@@ -1,10 +1,15 @@
 class Computer
 
-  attr_accessor :symbol, :engine, :name
-  attr_reader :scored_moves
+  attr_accessor :symbol, :name
+  attr_reader :scored_moves, :engine, :board
 
   def initialize
     @scored_moves = {}
+  end
+
+  def engine=(engine)
+    @engine = engine
+    @board = engine.game.board
   end
 
   def opponent_symbol
@@ -16,9 +21,9 @@ class Computer
   end
 
   def choose_move
-    return 4 if engine.game.board.empty?
+    return 4 if board.empty?
     @scored_moves = {}
-    negamax(engine.game.board)
+    negamax(board)
     scored_moves.max_by(&:last).first
   end
 
