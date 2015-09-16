@@ -8,7 +8,7 @@ class Board
   end
 
   def mark(cell, symbol)
-    raise RuntimeError.new("You are an idiot.") unless can_mark?(cell)
+    raise RuntimeError.new("Cell is already marked.") unless can_mark?(cell)
     grid[cell].content = symbol
   end
 
