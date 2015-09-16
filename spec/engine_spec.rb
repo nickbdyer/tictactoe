@@ -50,20 +50,20 @@ describe Engine do
   context "gameplay" do
 
     it "can play a two player game" do
-      $stdin = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\nn\n")
+      $stdin = StringIO.new("1\nNick\nRach\n1\ny\n1\n4\n2\n5\n3\nn\n")
       expect{ engine.start }.to raise_exception(SystemExit)
       expect(board.grid.map { |cell| cell.content } ).to eq ["X", "X", "X", "O", "O", nil, nil, nil, nil]
     end
 
     it "can play a one player game" do
-      $stdin = StringIO.new("2\nNick\n1\n1\n4\n2\nn\n")
+      $stdin = StringIO.new("2\nNick\n1\ny\n1\n4\n2\nn\n")
       expect{ engine.start }.to raise_exception(SystemExit)
       expect(board.grid.map { |cell| cell.content } ).to eq ["X", "X", "O", "X", "O", nil, "O", nil, nil]
       expect(game.has_a_winner?).to be true
     end
 
     it "can play an ai only game" do
-      $stdin = StringIO.new("3\n1\nn\n")
+      $stdin = StringIO.new("3\n1\ny\nn\n")
       expect{ engine.start }.to raise_exception(SystemExit)
       expect(game.draw?).to be true
     end
@@ -76,7 +76,7 @@ describe Engine do
     end
 
     it "can reset the game" do
-      $stdin = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\ny\n") # "y\n" is yes to playing another game
+      $stdin = StringIO.new("1\nNick\nRach\n1\ny\n1\n4\n2\n5\n3\ny\n") # "y\n" is yes to playing another game
       expect(game).to receive(:reset)
       engine.start
     end
