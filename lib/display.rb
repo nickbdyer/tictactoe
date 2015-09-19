@@ -1,7 +1,7 @@
 class Display
 
   def show(board)
-    cells = board.grid.map { |cell| cell.content ? cell.content : " " }
+    cells = board.grid
     puts " #{cells[0]} | #{cells[1]} | #{cells[2]} "
     puts "---|---|---"
     puts " #{cells[3]} | #{cells[4]} | #{cells[5]} "

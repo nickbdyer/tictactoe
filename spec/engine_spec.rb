@@ -2,13 +2,12 @@ require 'engine'
 require 'display'
 require 'board'
 require 'game'
-require 'cell'
 require 'player'
 require 'computer'
 
 describe Engine do
 
-  let(:board) { Board.new(Cell, 9) }
+  let(:board) { Board.new(3) }
   let(:display) { Display.new }
   let(:game) { Game.new(board) }
   let(:player1) { Player.new }
@@ -52,13 +51,13 @@ describe Engine do
     it "can play a two player game" do
       $stdin = StringIO.new("1\nNick\nRach\n1\ny\n1\n4\n2\n5\n3\nn\n")
       expect{ engine.start }.to raise_exception(SystemExit)
-      expect(board.grid.map { |cell| cell.content } ).to eq ["X", "X", "X", "O", "O", nil, nil, nil, nil]
+      expect(board.grid).to eq ["X", "X", "X", "O", "O", 6, 7, 8, 9]
     end
 
     it "can play a one player game" do
       $stdin = StringIO.new("2\nNick\n1\ny\n1\n4\n2\nn\n")
       expect{ engine.start }.to raise_exception(SystemExit)
-      expect(board.grid.map { |cell| cell.content } ).to eq ["X", "X", "O", "X", "O", nil, "O", nil, nil]
+      expect(board.grid).to eq ["X", "X", "O", "X", "O", 6, "O", 8, 9]
       expect(game.has_a_winner?).to be true
     end
 
