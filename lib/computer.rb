@@ -1,6 +1,7 @@
-class Computer
+require_relative './player'
 
-  attr_accessor :symbol, :name
+class Computer < Player
+
   attr_reader :scored_moves, :engine, :board
 
   def initialize
