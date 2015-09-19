@@ -26,7 +26,7 @@ class Board
   end
 
   def available_cells
-    (0..8).to_a.keep_if { |cell| can_mark?(cell) }
+    (0..size - 1).to_a.keep_if { |cell| can_mark?(cell) }
   end
 
   def has_a_winner?
