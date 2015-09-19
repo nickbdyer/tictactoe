@@ -51,7 +51,6 @@ class Engine
 
   def print_introduction
     display.introduction
-    puts ""
     display.choose_game
     case $stdin.gets.chomp
     when "1"

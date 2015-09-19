@@ -1,61 +1,64 @@
 class Display
 
+  attr_reader :input, :output
+
   def initialize(input = $stdin, output = $stdout)
     @input, @output = input, output
   end
 
   def show(board)
     cells = board.grid
-    puts " #{cells[0]} | #{cells[1]} | #{cells[2]} "
-    puts "---|---|---"
-    puts " #{cells[3]} | #{cells[4]} | #{cells[5]} "
-    puts "---|---|---"
-    puts " #{cells[6]} | #{cells[7]} | #{cells[8]} "
+    output.puts " #{cells[0]} | #{cells[1]} | #{cells[2]} "
+    output.puts "---|---|---"
+    output.puts " #{cells[3]} | #{cells[4]} | #{cells[5]} "
+    output.puts "---|---|---"
+    output.puts " #{cells[6]} | #{cells[7]} | #{cells[8]} "
   end
 
   def introduction
-    puts "**********************************"
-    puts "-------Welcome to TicTacToe-------"
-    puts "**********************************"
+    output.puts "**********************************"
+    output.puts "-------Welcome to TicTacToe-------"
+    output.puts "**********************************"
+    output.puts " "
   end
 
   def choose_game
-    puts "What type of game would you like to play? Press the corresponding number and <Enter>."
-    puts "1. Human vs. Human"
-    puts "2. Human vs. Machine"
-    puts "3. Machine vs. Machine"
+    output.puts "What type of game would you like to play? Press the corresponding number and <Enter>."
+    output.puts "1. Human vs. Human"
+    output.puts "2. Human vs. Machine"
+    output.puts "3. Machine vs. Machine"
   end
 
   def name_query(number)
-    puts "Player #{number}, what is your name?"
+    output.puts "Player #{number}, what is your name?"
   end
 
   def starting_player_query(player)
-    puts "#{player.name}, would you like to play first? (y/n)"
+    output.puts "#{player.name}, would you like to play first? (y/n)"
   end
 
   def mark_query(player)
-    puts "#{player.name}, what mark would you like to play as?"
-    puts "1. X"
-    puts "2. O"
+    output.puts "#{player.name}, what mark would you like to play as?"
+    output.puts "1. X"
+    output.puts "2. O"
   end
 
   def prompt_selection(player)
-    puts "#{player.name}, it's your move, choose a cell from 1-9"
+    output.puts "#{player.name}, it's your move, choose a cell from 1-9"
   end
 
   def announce_winner(player)
-    puts "#{player.name} is the winner."
-    puts "If you'd like to play again type 'y', or any other letter to quit."
+    output.puts "#{player.name} is the winner."
+    output.puts "If you'd like to play again type 'y', or any other letter to quit."
   end
 
   def announce_draw
-    puts "It is a draw!"
-    puts "If you'd like to play again type 'y', or any other letter to quit."
+    output.puts "It is a draw!"
+    output.puts "If you'd like to play again type 'y', or any other letter to quit."
   end
 
   def bad_move
-    puts "Please enter a valid position."
+    output.puts "Please enter a valid position."
   end
 
 end
