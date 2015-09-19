@@ -1,27 +1,28 @@
 class Board
 
-  attr_reader :grid
+  attr_reader :grid, :size
 
-  def initialize(content, size)
+  def initialize(length)
+    @size = length**2
     @grid = []
-    create_grid(content, size)
+    create_grid(size)
   end
 
   def mark(cell, symbol)
     raise RuntimeError.new("Cell is already marked.") unless can_mark?(cell)
-    grid[cell].content = symbol
+    grid[cell] = symbol
   end
 
   def empty?
-    grid.all? { |cell| cell.content == nil }
+    grid.all? { |cell| cell.class == Fixnum }
   end
 
   def full?
-    grid.all? { |cell| cell.content != nil }
+    grid.all? { |cell| cell.class != Fixnum }
   end
 
   def can_mark?(cell_index)
-    !!grid[cell_index] && grid[cell_index].content == nil
+    grid[cell_index].class == Fixnum
   end
 
   def available_cells
@@ -42,16 +43,13 @@ class Board
   end
 
   def clear
-    grid.each { |cell| cell.content = nil }
+    create_grid(size) 
   end
 
   private
 
   def possible_combinations
     groups = rows + columns + diagonals
-    groups.each do |group|
-      group.map! { |element| element.content }
-    end
   end
 
   def rows
@@ -74,9 +72,8 @@ class Board
     (0..2).collect { |i| rows[i].reverse[i] }
   end
 
-  def create_grid(content, size)
-    size.times { grid << content.new }
-    grid
+  def create_grid(size)
+    @grid = (1..size).to_a
   end
 
 end

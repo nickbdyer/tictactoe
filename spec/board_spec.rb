@@ -1,9 +1,8 @@
 require 'board'
-require 'cell'
 
 describe Board do
 
-  let(:board) { Board.new(Cell, 9) }
+  let(:board) { Board.new(3) }
   let(:player1) { double :player, symbol: "X" }
   let(:player2) { double :player, symbol: "O" }
 
@@ -11,13 +10,9 @@ describe Board do
     expect(board.grid.length).to eq 9
   end
 
-  it "can be initilized with content" do
-    expect(board.grid[0]).to be_a Cell
-  end
-
   it "can send a mark to a cell" do
     board.mark(0, player1.symbol)
-    expect(board.grid[0].content).to eq "X"
+    expect(board.grid[0]).to eq "X"
   end
 
   it "knows when a cell is marked" do
