@@ -1,5 +1,9 @@
 class Display
 
+  def initialize(input = $stdin, output = $stdout)
+    @input, @output = input, output
+  end
+
   def show(board)
     cells = board.grid
     puts " #{cells[0]} | #{cells[1]} | #{cells[2]} "

@@ -4,7 +4,7 @@ describe Display do
 
   let(:game) { double :game, turn: player1, winner: player1 }
   let(:player1) { double :player, name: "Nick"}
-  let(:display) { Display.new }
+  let(:display) { Display.new($stdin, $stdout) }
 
   it "can show a welcome message" do
     expect{display.introduction}.to output("**********************************\n-------Welcome to TicTacToe-------\n**********************************\n").to_stdout
