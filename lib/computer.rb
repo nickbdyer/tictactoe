@@ -21,7 +21,6 @@ class Computer
   end
 
   def choose_move
-    return 4 if board.empty?
     @scored_moves = {}
     negamax(board)
     scored_moves.max_by(&:last).first
@@ -33,7 +32,7 @@ class Computer
     board.available_cells.each do |cell|
       color == 1 ? board.mark(cell, symbol) : board.mark(cell, opponent_symbol)
       val = -negamax(board, depth + 1, -β, -α, -color)
-      board.grid[cell].content = nil
+      board.grid[cell] = cell + 1
       bestValue = [bestValue, val].max
       scored_moves[cell] = bestValue if depth == 0
       α = [α, bestValue].max 

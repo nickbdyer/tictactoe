@@ -4,7 +4,6 @@ require 'engine'
 require 'board'
 require 'game'
 require 'display'
-require 'cell'
 require 'player'
 
 describe Computer do
@@ -12,7 +11,7 @@ describe Computer do
   let(:computer) { Computer.new }
   let(:player) { Player.new }
   let(:display) { Display.new }
-  let(:board) { Board.new(Cell, 9) }
+  let(:board) { Board.new(3) }
   let(:game) { Game.new(board) }
   let(:engine) { Engine.new(game, display) }
   let(:empty_board) { double :board, available_moves: [0, 1, 2, 3, 4, 5, 6, 7, 8], winner: false, full?: false }
@@ -37,63 +36,63 @@ describe Computer do
     computer.mark(3)
   end
 
-  it "will choose center if playing first" do
+  it "will choose the top left corner if playing first" do
     setup_game
-    expect(computer.choose_move).to eq 4
+    expect(computer.choose_move).to eq 0
   end
 
   it "will play center if first player didn't" do
     setup_game
-    game.board.grid[0].content = "O"
+    game.board.grid[0] = "O"
     expect(computer.choose_move).to eq 4
   end
 
   it "will win game if option is available" do
     setup_game
-    game.board.grid[0].content = "X"
-    game.board.grid[2].content = "X"
+    game.board.grid[0] = "X"
+    game.board.grid[2] = "X"
     expect(computer.choose_move).to eq 1
   end
 
   it "will stop win game if option is available" do
     setup_game
-    game.board.grid[1].content = "O"
-    game.board.grid[5].content = "O"
-    game.board.grid[6].content = "X"
-    game.board.grid[7].content = "X"
-    game.board.grid[8].content = "O"
+    game.board.grid[1] = "O"
+    game.board.grid[5] = "O"
+    game.board.grid[6] = "X"
+    game.board.grid[7] = "X"
+    game.board.grid[8] = "O"
     expect(computer.choose_move).to eq 2
   end
 
   it "will prevent diagonal fork" do
     setup_game
-    game.board.grid[0].content = "X"
-    game.board.grid[4].content = "O"
-    game.board.grid[8].content = "O"
+    game.board.grid[0] = "X"
+    game.board.grid[4] = "O"
+    game.board.grid[8] = "O"
     expect(computer.choose_move).to eq 2
   end
 
   it "will prevent another diagonal fork" do
     setup_game
-    game.board.grid[0].content = "O"
-    game.board.grid[5].content = "X"
-    game.board.grid[8].content = "O"
+    game.board.grid[0] = "O"
+    game.board.grid[5] = "X"
+    game.board.grid[8] = "O"
     expect(computer.choose_move).to eq 4
   end
 
   it "will prevent edge trap" do
     setup_game
-    game.board.grid[1].content = "O"
-    game.board.grid[3].content = "O"
-    game.board.grid[4].content = "X"
+    game.board.grid[1] = "O"
+    game.board.grid[3] = "O"
+    game.board.grid[4] = "X"
     expect(computer.choose_move).to eq 0
   end
  
   it "will prevent reverse edge trap" do
     setup_game
-    game.board.grid[4].content = "X"
-    game.board.grid[5].content = "O"
-    game.board.grid[7].content = "O"
+    game.board.grid[4] = "X"
+    game.board.grid[5] = "O"
+    game.board.grid[7] = "O"
     expect(computer.choose_move).to eq 2
   end
 
