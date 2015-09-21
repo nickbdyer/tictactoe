@@ -9,8 +9,8 @@ require 'player'
 describe Computer do
 
   let(:computer) { Computer.new }
-  let(:player) { Player.new }
   let(:display) { Display.new }
+  let(:player) { Player.new(display) }
   let(:board) { Board.new(3) }
   let(:game) { Game.new(board) }
   let(:engine) { Engine.new(game, display) }

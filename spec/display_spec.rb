@@ -7,7 +7,7 @@ describe Display do
   let(:display) { Display.new($stdin, $stdout) }
 
   it "can show a welcome message" do
-    expect{display.introduction}.to output("**********************************\n-------Welcome to TicTacToe-------\n**********************************\n").to_stdout
+    expect{display.introduction}.to output("**********************************\n-------Welcome to TicTacToe-------\n**********************************\n \n").to_stdout
   end
 
   it "can show a game choice message" do

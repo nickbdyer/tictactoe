@@ -65,12 +65,12 @@ class Engine
   end
 
   def setup_two_player_game
-    2.times{ game.add_player(Player.new) }
+    2.times{ game.add_player(Player.new(display)) }
     [1,2].each { |player| assign_name(player) }
   end
 
   def setup_one_player_game
-    [Player.new, Computer.new].each { |player| game.add_player(player) }
+    [Player.new(display), Computer.new].each { |player| game.add_player(player) }
     game.player2.name, game.player2.engine = "Tron", self
     assign_name(1)
   end

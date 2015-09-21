@@ -10,8 +10,8 @@ describe Engine do
   let(:board) { Board.new(3) }
   let(:display) { Display.new }
   let(:game) { Game.new(board) }
-  let(:player1) { Player.new }
-  let(:player2) { Player.new }
+  let(:player1) { Player.new(display) }
+  let(:player2) { Player.new(display)}
   let(:engine) { Engine.new(game, display) }
 
   before do
@@ -70,7 +70,8 @@ describe Engine do
     it "can ignore an invalid move, and prompt for a new selection" do
       setup_two_player_game
       engine.process_mark(1)
-      expect{engine.process_mark(1)}.to output("Please enter a valid position.\n").to_stdout
+      expect(display).to receive(:bad_move)
+      engine.process_mark(1)
       expect(game.turn).to eq player2
     end
 
