@@ -13,25 +13,25 @@ class Engine
   end
 
   def play_game
-    ui.show(game.board)
     until game.ended? do
-      process_mark(game.turn.choose_move(game.board))
-      ui.show(game.board)
+      make_move
     end
     ui.announce_winner(game.opponent) if game.has_a_winner?
     ui.announce_draw if game.draw?
-    another_round_query
+    ui.another_round? ? restart : exit(0)
   end
 
   def restart
     game.reset
     ui.introduction
+    ui.show(game.board)
     play_game if game.ready?
   end
 
-  def process_mark(position)
-    return ui.bad_move unless game.valid_move?(position)
-    game.mark(position, game.turn)
+  def make_move
+    game.turn.choose_move(game.board)
+    game.switch_players
+    ui.show(game.board)
   end
 
   def print_introduction
@@ -47,6 +47,7 @@ class Engine
     end
     assign_symbol(game.player1)
     assign_first_player(game.turn)
+    ui.show(game.board)
   end
 
   def setup_two_player_game
@@ -79,10 +80,6 @@ class Engine
   def assign_name(player_number)
     ui.name_query(player_number)
     game.public_send("player#{player_number}").name = $stdin.gets.chomp
-  end
-
-  def another_round_query
-    $stdin.gets.chomp == "y" ? restart : exit(0)
   end
 
 end

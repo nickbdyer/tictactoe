@@ -24,11 +24,6 @@ class Game
     turn == player1 ? player2 : player1
   end
 
-  def mark(position, player)
-    board.mark(position, player.symbol)
-    switch_players
-  end
-
   def has_a_winner?
     board.has_a_winner?
   end
@@ -48,8 +43,6 @@ class Game
   def valid_move?(position)
     board.can_mark?(position) && position >= 0
   end
-
-  private
 
   def switch_players
     turn == player1 ? @turn = player2 : @turn = player1

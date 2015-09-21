@@ -67,17 +67,9 @@ describe Engine do
       expect(game.draw?).to be true
     end
 
-    it "can ignore an invalid move, and prompt for a new selection" do
-      setup_two_player_game
-      engine.process_mark(1)
-      expect(ui).to receive(:bad_move)
-      engine.process_mark(1)
-      expect(game.turn).to eq player2
-    end
-
     it "can reset the game" do
-      $stdin = StringIO.new("1\nNick\nRach\n1\ny\n1\n4\n2\n5\n3\ny\n") # "y\n" is yes to playing another game
-      expect(game).to receive(:reset)
+      $stdin = StringIO.new("1\nNick\nRach\n1\ny\n1\n4\n2\n5\n3\ny\n")
+      expect(engine).to receive(:restart)
       engine.start
     end
   end

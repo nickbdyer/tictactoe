@@ -43,9 +43,15 @@ class User_Interface
     output.puts "2. O"
   end
 
-  def prompt_selection(player)
+  def human_move(board, player)
     output.puts "#{player.name}, it's your move, choose a cell from 1-9"
-    input.gets.chomp.to_i - 1
+    board.mark((input.gets.chomp.to_i) - 1, player.symbol)
+    p input
+  end
+
+  def computer_move(board, move, computer)
+    output.puts "#{computer.name} has made a move"
+    board.mark(move, computer.symbol)
   end
 
   def announce_winner(player)
@@ -61,5 +67,10 @@ class User_Interface
   def bad_move
     output.puts "Please enter a valid position."
   end
+
+  def another_round?
+    input.gets.chomp == "y"
+  end
+
 
 end

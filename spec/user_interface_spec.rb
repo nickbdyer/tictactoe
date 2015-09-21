@@ -3,6 +3,7 @@ require 'user_interface'
 describe User_Interface do
 
   let(:game) { double :game, turn: player1, winner: player1 }
+  let(:board) { double :board }
   let(:player1) { double :player, name: "Nick"}
   let(:ui) { User_Interface.new($stdin, $stdout) }
 
@@ -28,7 +29,9 @@ describe User_Interface do
 
   it "prompt a player to play" do
     $stdin = StringIO.new("1\n")
-    expect{ui.prompt_selection(game.turn)}.to output("Nick, it's your move, choose a cell from 1-9\n").to_stdout
+    allow(player1).to receive(:symbol)
+    allow(board).to receive(:mark)
+    expect{ui.human_move(board, game.turn)}.to output("Nick, it's your move, choose a cell from 1-9\n").to_stdout
   end
 
   it "can announce the winner" do

@@ -25,16 +25,8 @@ describe Game do
     expect(game.board).to eq board
   end
 
-  it "can mark the board" do
-    add_two_players
-    expect(board).to receive(:mark).with(3, "X")
-    game.mark(3, player1)
-  end
-
   it "can be reset" do
     add_two_players
-    allow(board).to receive(:mark).with(0, "X")
-    game.mark(0, player1)
     expect(board).to receive(:clear)
     game.reset
   end
@@ -59,20 +51,6 @@ describe Game do
     it "knows if a position is within range" do
       allow(board).to receive(:can_mark?).with(15).and_return(false)
       expect(game.valid_move?(15)).to be false
-    end
-
-    it "knows whos turn it is" do
-      add_two_players
-      allow(board).to receive(:mark).with(3, "X")
-      game.mark(3, player1)
-      expect(game.turn).to eq player2
-    end
-
-    it "knows whos turn it is next" do
-      add_two_players
-      allow(board).to receive(:mark).with(3, "X")
-      game.mark(3, player1)
-      expect(game.opponent).to be player1
     end
 
     it "knowns when there is a winner" do

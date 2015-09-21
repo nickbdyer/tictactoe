@@ -14,7 +14,7 @@ class Computer < Player
   end
 
   def choose_move(board)
-    interface.computer_move(chosen_move(board))
+    interface.computer_move(board, chosen_move(board), self)
   end
 
   def chosen_move(board)
