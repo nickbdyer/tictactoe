@@ -46,7 +46,6 @@ class User_Interface
   def human_move(board, player)
     output.puts "#{player.name}, it's your move, choose a cell from 1-9"
     board.mark((input.gets.chomp.to_i) - 1, player.symbol)
-    p input
   end
 
   def computer_move(board, move, computer)
