@@ -2,26 +2,22 @@ require_relative './player'
 
 class Computer < Player
 
-  attr_reader :scored_moves, :engine, :board
+  attr_reader :scored_moves, :interface
 
-  def initialize
+  def initialize(interface)
+    @interface = interface
     @scored_moves = {}
-  end
-
-  def engine=(engine)
-    @engine = engine
-    @board = engine.game.board
   end
 
   def opponent_symbol
     symbol == "X" ? "O" : "X"
   end
 
-  def mark(cell)
-    engine.process_mark(cell)
+  def choose_move(board)
+    interface.computer_move(chosen_move(board))
   end
 
-  def choose_move
+  def chosen_move(board)
     @scored_moves = {}
     negamax(board)
     scored_moves.max_by(&:last).first

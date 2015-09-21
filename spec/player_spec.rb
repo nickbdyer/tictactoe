@@ -3,6 +3,7 @@ require 'player'
 describe Player do
 
   let(:ui) { double :ui }
+  let(:board) { double :board }
   let(:player) { Player.new(ui) }
   
   it "can choose a symbol" do
@@ -16,8 +17,8 @@ describe Player do
   end
 
   it "can choose a move" do
-    expect(ui).to receive(:prompt_selection)
-    player.choose_move
+    expect(ui).to receive(:human_move)
+    player.choose_move(board)
   end
 
 end

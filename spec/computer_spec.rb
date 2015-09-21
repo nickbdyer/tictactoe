@@ -8,8 +8,8 @@ require 'player'
 
 describe Computer do
 
-  let(:computer) { Computer.new }
   let(:ui) { User_Interface.new }
+  let(:computer) { Computer.new(ui) }
   let(:player) { Player.new(ui) }
   let(:board) { Board.new(3) }
   let(:game) { Game.new(board) }
@@ -20,38 +20,29 @@ describe Computer do
   let(:draw_board) { double :board, full?: true, winner: false }
 
   before do
-    setup_computer
-  end
-
-  it "can have an engine" do
-    expect(computer.engine).to eq engine
+    computer.symbol = "X"
   end
 
   it "can have a symbol" do
     expect(computer.symbol).to eq "X"
   end
 
-  it "can mark the board" do
-    expect(engine).to receive(:process_mark).with(3)
-    computer.mark(3)
-  end
-
   it "will choose the top left corner if playing first" do
     setup_game
-    expect(computer.choose_move).to eq 0
+    expect(computer.chosen_move(board)).to eq 0
   end
 
   it "will play center if first player didn't" do
     setup_game
     game.board.grid[0] = "O"
-    expect(computer.choose_move).to eq 4
+    expect(computer.chosen_move(board)).to eq 4
   end
 
   it "will win game if option is available" do
     setup_game
     game.board.grid[0] = "X"
     game.board.grid[2] = "X"
-    expect(computer.choose_move).to eq 1
+    expect(computer.chosen_move(board)).to eq 1
   end
 
   it "will stop win game if option is available" do
@@ -61,7 +52,7 @@ describe Computer do
     game.board.grid[6] = "X"
     game.board.grid[7] = "X"
     game.board.grid[8] = "O"
-    expect(computer.choose_move).to eq 2
+    expect(computer.chosen_move(board)).to eq 2
   end
 
   it "will prevent diagonal fork" do
@@ -69,7 +60,7 @@ describe Computer do
     game.board.grid[0] = "X"
     game.board.grid[4] = "O"
     game.board.grid[8] = "O"
-    expect(computer.choose_move).to eq 2
+    expect(computer.chosen_move(board)).to eq 2
   end
 
   it "will prevent another diagonal fork" do
@@ -77,7 +68,7 @@ describe Computer do
     game.board.grid[0] = "O"
     game.board.grid[5] = "X"
     game.board.grid[8] = "O"
-    expect(computer.choose_move).to eq 4
+    expect(computer.chosen_move(board)).to eq 4
   end
 
   it "will prevent edge trap" do
@@ -85,7 +76,7 @@ describe Computer do
     game.board.grid[1] = "O"
     game.board.grid[3] = "O"
     game.board.grid[4] = "X"
-    expect(computer.choose_move).to eq 0
+    expect(computer.chosen_move(board)).to eq 0
   end
  
   it "will prevent reverse edge trap" do
@@ -93,7 +84,7 @@ describe Computer do
     game.board.grid[4] = "X"
     game.board.grid[5] = "O"
     game.board.grid[7] = "O"
-    expect(computer.choose_move).to eq 2
+    expect(computer.chosen_move(board)).to eq 2
   end
 
   it "knows what the opponents symbol is" do

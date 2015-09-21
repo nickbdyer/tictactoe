@@ -7,11 +7,6 @@ def setup_game
   game.player2.symbol = "O"
 end
 
-def setup_computer
-  computer.engine = engine
-  computer.symbol = "X"
-end
-
 def add_two_players
   game.add_player(player1)
   game.add_player(player2)

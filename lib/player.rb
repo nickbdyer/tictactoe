@@ -7,8 +7,8 @@ class Player
     @interface = interface
   end
 
-  def choose_move
-    interface.prompt_selection(self)
+  def choose_move(board)
+    interface.human_move(board, self)
   end
 
 end
