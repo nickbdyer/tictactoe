@@ -15,15 +15,12 @@ class Engine
   def play_game
     display.show(game.board)
     until game.ended? do
-      display.prompt_selection(game.turn)
-      human_player? ? human_move : computer_move
+      process_mark(game.turn.choose_move)
       display.show(game.board)
-      if (game.ended?)
-        display.announce_winner(game.opponent) if game.has_a_winner?
-        display.announce_draw if game.draw?
-        another_round_query
-      end
     end
+    display.announce_winner(game.opponent) if game.has_a_winner?
+    display.announce_draw if game.draw?
+    another_round_query
   end
 
   def restart
@@ -35,18 +32,6 @@ class Engine
   def process_mark(position)
     return display.bad_move unless game.valid_move?(position)
     game.mark(position, game.turn)
-  end
-
-  def human_player?
-    game.turn.class == Player
-  end
-
-  def human_move
-    process_mark($stdin.gets.chomp.to_i - 1) 
-  end
-
-  def computer_move
-    game.turn.mark(game.turn.choose_move)
   end
 
   def print_introduction

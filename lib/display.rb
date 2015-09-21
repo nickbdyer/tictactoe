@@ -45,6 +45,7 @@ class Display
 
   def prompt_selection(player)
     output.puts "#{player.name}, it's your move, choose a cell from 1-9"
+    input.gets.chomp.to_i - 1
   end
 
   def announce_winner(player)

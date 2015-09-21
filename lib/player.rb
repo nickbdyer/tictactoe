@@ -8,7 +8,7 @@ class Player
   end
 
   def choose_move
-    interface.prompt_selection
+    interface.prompt_selection(self)
   end
 
 end

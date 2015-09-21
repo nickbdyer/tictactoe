@@ -27,6 +27,7 @@ describe Display do
   end
 
   it "prompt a player to play" do
+    $stdin = StringIO.new("1\n")
     expect{display.prompt_selection(game.turn)}.to output("Nick, it's your move, choose a cell from 1-9\n").to_stdout
   end
 
