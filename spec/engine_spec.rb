@@ -1,5 +1,5 @@
 require 'engine'
-require 'display'
+require 'user_interface'
 require 'board'
 require 'game'
 require 'player'
@@ -8,11 +8,11 @@ require 'computer'
 describe Engine do
 
   let(:board) { Board.new(3) }
-  let(:display) { Display.new }
+  let(:ui) { User_Interface.new }
   let(:game) { Game.new(board) }
-  let(:player1) { Player.new(display) }
-  let(:player2) { Player.new(display)}
-  let(:engine) { Engine.new(game, display) }
+  let(:player1) { Player.new(ui) }
+  let(:player2) { Player.new(ui)}
+  let(:engine) { Engine.new(game, ui) }
 
   before do
     $stdout = StringIO.new
@@ -70,7 +70,7 @@ describe Engine do
     it "can ignore an invalid move, and prompt for a new selection" do
       setup_two_player_game
       engine.process_mark(1)
-      expect(display).to receive(:bad_move)
+      expect(ui).to receive(:bad_move)
       engine.process_mark(1)
       expect(game.turn).to eq player2
     end

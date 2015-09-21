@@ -1,4 +1,4 @@
-class Display
+class User_Interface
 
   attr_reader :input, :output
 

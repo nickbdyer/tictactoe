@@ -3,17 +3,17 @@ require 'computer'
 require 'engine'
 require 'board'
 require 'game'
-require 'display'
+require 'user_interface'
 require 'player'
 
 describe Computer do
 
   let(:computer) { Computer.new }
-  let(:display) { Display.new }
-  let(:player) { Player.new(display) }
+  let(:ui) { User_Interface.new }
+  let(:player) { Player.new(ui) }
   let(:board) { Board.new(3) }
   let(:game) { Game.new(board) }
-  let(:engine) { Engine.new(game, display) }
+  let(:engine) { Engine.new(game, ui) }
   let(:empty_board) { double :board, available_moves: [0, 1, 2, 3, 4, 5, 6, 7, 8], winner: false, full?: false }
   let(:comp_win_board) { double :board, winner: "X" }
   let(:opponent_win_board) { double :board, winner: "O" }
