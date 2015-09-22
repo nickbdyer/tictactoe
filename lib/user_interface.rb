@@ -4,6 +4,7 @@ class User_Interface
 
   TITLE = "-------Welcome to TicTacToe-------"
   STARS = "*" * 34
+  CLEAR_SCREEN = "\e[H\e[2J"
 
   def initialize(input = $stdin, output = $stdout)
     @input, @output = input, output
@@ -11,6 +12,7 @@ class User_Interface
 
   def show(board)
     cells = board.grid
+    output.puts CLEAR_SCREEN
     output.puts " #{cells[0]} | #{cells[1]} | #{cells[2]} "
     output.puts "---|---|---"
     output.puts " #{cells[3]} | #{cells[4]} | #{cells[5]} "
@@ -19,6 +21,7 @@ class User_Interface
   end
 
   def introduction
+    output.puts CLEAR_SCREEN
     output.puts STARS
     output.puts TITLE
     output.puts STARS
