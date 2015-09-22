@@ -2,6 +2,9 @@ class User_Interface
 
   attr_reader :input, :output
 
+  TITLE = "-------Welcome to TicTacToe-------"
+  STARS = "*" * 34
+
   def initialize(input = $stdin, output = $stdout)
     @input, @output = input, output
   end
@@ -16,9 +19,9 @@ class User_Interface
   end
 
   def introduction
-    output.puts "**********************************"
-    output.puts "-------Welcome to TicTacToe-------"
-    output.puts "**********************************"
+    output.puts STARS
+    output.puts TITLE
+    output.puts STARS
     output.puts " "
   end
 
@@ -27,7 +30,19 @@ class User_Interface
     output.puts "1. Human vs. Human"
     output.puts "2. Human vs. Machine"
     output.puts "3. Machine vs. Machine"
-    input.gets.chomp
+    selection = input.gets.chomp
+    until ["1", "2", "3"].include? selection do
+      try_choose_game_again
+      selection = input.gets.chomp
+    end
+  end
+
+  def try_choose_game_again
+    output.puts "Don't be that guy."
+    output.puts STARS
+    output.puts "1. Human vs. Human"
+    output.puts "2. Human vs. Machine"
+    output.puts "3. Machine vs. Machine"
   end
 
   def name_query(number)

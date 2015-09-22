@@ -36,14 +36,10 @@ class Engine
 
   def print_introduction
     ui.introduction
-    case ui.choose_game
-    when "1"
-      setup_two_player_game
-    when "2"
-      setup_one_player_game
-    when "3"
-      setup_ai_game
-    end
+    game_choice = ui.choose_game
+    setup_two_player_game if game_choice == "1"
+    setup_one_player_game if game_choice == "2"
+    setup_ai_game if game_choice == "3"
     assign_symbol(game.player1)
     ui.show(game.board)
   end
