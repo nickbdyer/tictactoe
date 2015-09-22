@@ -8,43 +8,12 @@ require 'computer'
 describe Engine do
 
   let(:board) { Board.new(3) }
-  let(:ui) { User_Interface.new }
+  let(:output) { StringIO.new }
   let(:game) { Game.new(board) }
   let(:player1) { Player.new(ui) }
   let(:player2) { Player.new(ui)}
   let(:engine) { Engine.new(game, ui) }
 
-  before do
-    $stdout = StringIO.new
-  end
-
-  context "during setup" do
-
-    it "can assign a name" do
-      $stdin = StringIO.new("Nick\n")
-      setup_two_player_game
-      engine.assign_name(1)
-      expect(player1.name).to eq "Nick"
-    end
-
-    it "can assign a symbol" do
-      $stdin = StringIO.new("1\n")
-      game.add_player(player1)
-      game.add_player(player2)
-      engine.assign_symbol(player1)
-      expect(player1.symbol).to eq "X"
-      expect(player2.symbol).to eq "O"
-    end
-
-    it "can set who plays first" do
-      $stdin = StringIO.new("n\n")
-      game.add_player(player1)
-      game.add_player(player2)
-      engine.assign_first_player(player1)
-      expect(game.turn).to eq player2
-    end
-
-  end
 
   context "gameplay" do
 

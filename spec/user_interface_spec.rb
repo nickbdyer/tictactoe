@@ -38,5 +38,32 @@ describe User_Interface do
     expect{ui.announce_draw}.to output("It is a draw!\nIf you'd like to play again type 'y', or any other letter to quit.\n").to_stdout
   end
 
+  it "can assign a name" do
+    input = StringIO.new("Nick\n")
+    ui = User_Interface.new(input, output)
+    setup_two_player_game
+    engine.assign_name(1)
+    expect(player1.name).to eq "Nick"
+  end
+
+  it "can assign a symbol" do
+    $stdin = StringIO.new("1\n")
+    game.add_player(player1)
+    game.add_player(player2)
+    engine.assign_symbol(player1)
+    expect(player1.symbol).to eq "X"
+    expect(player2.symbol).to eq "O"
+  end
+
+  it "can set who plays first" do
+    $stdin = StringIO.new("n\n")
+    game.add_player(player1)
+    game.add_player(player2)
+    engine.assign_first_player(player1)
+    expect(game.turn).to eq player2
+  end
+
+end
+
 end
 
