@@ -1,11 +1,11 @@
 require 'player'
 
-describe Player do
+describe TicTacToe::Player do
 
   let(:ui) { double :ui }
   let(:board) { double :board }
-  let(:player) { Player.new(ui) }
-  
+  let(:player) { TicTacToe::Player.new(ui) }
+
   it "can choose a symbol" do
     player.symbol = "X"
     expect(player.symbol).to eq "X"
