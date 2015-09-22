@@ -51,18 +51,18 @@ class Engine
   end
 
   def setup_two_player_game
-    2.times{ game.add_player(Player.new(ui)) }
+    2.times{ game.add_player(TicTacToe::Player.new(ui)) }
     [1,2].each { |player| assign_name(player) }
   end
 
   def setup_one_player_game
-    [Player.new(ui), Computer.new(ui)].each { |player| game.add_player(player) }
+    [TicTacToe::Player.new(ui), TicTacToe::Computer.new(ui)].each { |player| game.add_player(player) }
     game.player2.name = "Tron" 
     assign_name(1)
   end
 
   def setup_ai_game
-    2.times{ game.add_player(Computer.new(ui)) }
+    2.times{ game.add_player(TicTacToe::Computer.new(ui)) }
     game.player1.name, game.player2.name = "Tron", "Hal 9000"
   end
 

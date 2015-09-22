@@ -64,6 +64,3 @@ describe User_Interface do
   end
 
 end
-
-end
-

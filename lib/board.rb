@@ -1,6 +1,7 @@
 class Board
 
-  attr_reader :grid, :size
+  attr_accessor :grid
+  attr_reader :size
 
   def initialize(length)
     @size = length**2
