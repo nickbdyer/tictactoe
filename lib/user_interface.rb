@@ -35,6 +35,7 @@ class User_Interface
       try_choose_game_again
       selection = input.gets.chomp
     end
+    selection
   end
 
   def try_choose_game_again
