@@ -14,6 +14,7 @@ module TicTacToe
     end
 
     def chosen_move(board)
+      return [0, 2, 6, 8].sample if board.available_cells.length == board.size
       @scored_moves = {}
       negamax(board)
       scored_moves.max_by(&:last).first
