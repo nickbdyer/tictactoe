@@ -20,7 +20,7 @@ module TicTacToe
     end
 
     def can_mark?(cell_index)
-      grid[cell_index].class == Fixnum
+      grid[cell_index].is_a? Fixnum
     end
 
     def available_cells
