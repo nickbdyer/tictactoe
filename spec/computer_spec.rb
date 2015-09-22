@@ -11,7 +11,7 @@ describe TicTacToe::Computer do
   let(:ui) { User_Interface.new }
   let(:computer) { TicTacToe::Computer.new(ui) }
   let(:player) { TicTacToe::Player.new(ui) }
-  let(:board) { Board.new(3) }
+  let(:board) { TicTacToe::Board.new(3) }
   let(:game) { Game.new(board) }
   let(:engine) { Engine.new(game, ui) }
   let(:comp_win_board) { double :board, winner: "X" }

@@ -1,8 +1,8 @@
 require 'board'
 
-describe Board do
+describe TicTacToe::Board do
 
-  let(:board) { Board.new(3) }
+  let(:board) { TicTacToe::Board.new(3) }
   let(:player1) { double :player, symbol: "X" }
   let(:player2) { double :player, symbol: "O" }
 
@@ -23,10 +23,6 @@ describe Board do
   it "knows which cells are unmarked" do
     (0..3).each { |cell| board.mark(cell, player1.symbol) }
     expect(board.available_cells).to eq [4, 5, 6, 7, 8]
-  end
-
-  it "knows when the board is empty" do
-    expect(board.empty?).to be true
   end
 
   it "knows when the board is full" do
@@ -62,7 +58,7 @@ describe Board do
   it "can be cleared" do
     (0..3).each { |cell| board.mark(cell, player1.symbol) }
     board.clear
-    expect(board.empty?).to be true
+    expect(board.available_cells.length).to eq board.size
   end
 
   it "can raise an error if a marking is not valid" do

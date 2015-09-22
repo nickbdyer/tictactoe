@@ -7,7 +7,7 @@ require 'computer'
 
 describe Engine do
 
-  let(:board) { Board.new(3) }
+  let(:board) { TicTacToe::Board.new(3) }
   let(:output) { StringIO.new }
   let(:game) { Game.new(board) }
 
