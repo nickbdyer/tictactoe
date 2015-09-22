@@ -11,4 +11,9 @@ game = Game.new(board)
 user_interface = User_Interface.new
 engine = Engine.new(game, user_interface)
 
-engine.start
+begin
+  engine.start
+#rescue NoMethodError
+rescue Interrupt
+  puts "Exiting..."
+end
