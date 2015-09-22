@@ -20,11 +20,7 @@ describe User_Interface do
   end
 
   it "can ask for player ones choice of mark" do
-    expect{ui.mark_query(player1)}.to output("Nick, what mark would you like to play as?\n1. X\n2. O\n").to_stdout
-  end
-
-  it "can ask for input on who plays first" do
-    expect{ui.starting_player_query(player1)}.to output("Nick, would you like to play first? (y/n)\n").to_stdout
+    expect{ui.mark_query(player1)}.to output("Nick, what mark would you like to play as?\n1. X (Plays first)\n2. O\n").to_stdout
   end
 
   it "prompt a player to play" do

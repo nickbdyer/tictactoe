@@ -33,13 +33,9 @@ class User_Interface
     output.puts "Player #{number}, what is your name?"
   end
 
-  def starting_player_query(player)
-    output.puts "#{player.name}, would you like to play first? (y/n)"
-  end
-
   def mark_query(player)
     output.puts "#{player.name}, what mark would you like to play as?"
-    output.puts "1. X"
+    output.puts "1. X (Plays first)"
     output.puts "2. O"
   end
 
