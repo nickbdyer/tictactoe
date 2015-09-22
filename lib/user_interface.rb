@@ -27,16 +27,19 @@ class User_Interface
     output.puts "1. Human vs. Human"
     output.puts "2. Human vs. Machine"
     output.puts "3. Machine vs. Machine"
+    input.gets.chomp
   end
 
   def name_query(number)
     output.puts "Player #{number}, what is your name?"
+    input.gets.chomp
   end
 
   def mark_query(player)
     output.puts "#{player.name}, what mark would you like to play as?"
     output.puts "1. X (Plays first)"
     output.puts "2. O"
+    input.gets.chomp
   end
 
   def human_move(board, player)

@@ -36,8 +36,7 @@ class Engine
 
   def print_introduction
     ui.introduction
-    ui.choose_game
-    case $stdin.gets.chomp
+    case ui.choose_game
     when "1"
       setup_two_player_game
     when "2"
@@ -46,7 +45,6 @@ class Engine
       setup_ai_game
     end
     assign_symbol(game.player1)
-    assign_first_player(game.turn)
     ui.show(game.board)
   end
 
@@ -67,19 +65,12 @@ class Engine
   end
 
   def assign_symbol(player)
-    ui.mark_query(player)
-    game.player1.symbol = $stdin.gets.chomp == "1" ? "X" : "O"
+    game.player1.symbol = ui.mark_query(player) == "1" ? "X" : "O"
     game.player2.symbol = game.player1.symbol == "O" ? "X" : "O"
   end
 
-  def assign_first_player(player)
-    ui.starting_player_query(player)
-    game.turn = $stdin.gets.chomp == "y" ? player : game.opponent
-  end
-
   def assign_name(player_number)
-    ui.name_query(player_number)
-    game.public_send("player#{player_number}").name = $stdin.gets.chomp
+    game.public_send("player#{player_number}").name = ui.name_query(player_number)
   end
 
 end
