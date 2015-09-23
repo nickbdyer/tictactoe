@@ -33,9 +33,9 @@ describe TicTacToe::Game do
       game.add_player(player2)
     end
 
-    it "knows whos turn it is at " do
+    it "knows whos turn it is" do
       add_two_players
-      expect(game.turn).to eq player1
+      expect(game.active_player).to eq player1
     end
 
   end

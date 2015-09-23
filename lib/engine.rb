@@ -29,7 +29,7 @@ class Engine
   end
 
   def make_move
-    game.turn.choose_move(game.board)
+    game.active_player.choose_move(game.board)
     game.switch_players
     ui.show(game.board)
   end

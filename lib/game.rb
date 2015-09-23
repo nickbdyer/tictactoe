@@ -2,7 +2,7 @@ module TicTacToe
   class Game
 
     attr_reader :player1, :player2, :board
-    attr_writer :turn
+    attr_writer :active_player
 
     def initialize(board)
       @player1, @player2 = nil, nil
@@ -17,12 +17,12 @@ module TicTacToe
       player1 != nil && player2 != nil
     end
 
-    def turn
-      @turn ||= player1
+    def active_player
+      @active_player ||= player1
     end
 
     def opponent
-      turn == player1 ? player2 : player1
+      active_player == player1 ? player2 : player1
     end
 
     def has_a_winner?
@@ -46,7 +46,7 @@ module TicTacToe
     end
 
     def switch_players
-      turn == player1 ? @turn = player2 : @turn = player1
+      active_player == player1 ? @active_player = player2 : @active_player = player1
     end
 
   end
