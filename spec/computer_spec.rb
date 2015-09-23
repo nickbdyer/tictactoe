@@ -1,26 +1,17 @@
-require 'spec_helper'
 require 'computer'
-require 'engine'
 require 'board'
-require 'game'
-require 'user_interface'
-require 'player'
 
 describe TicTacToe::Computer do
 
-  let(:ui) { User_Interface.new }
+  let(:ui) { double :ui }
   let(:computer) { TicTacToe::Computer.new(ui) }
-  let(:player) { TicTacToe::Player.new(ui) }
   let(:board) { TicTacToe::Board.new(3) }
-  let(:game) { Game.new(board) }
-  let(:engine) { Engine.new(game, ui) }
   let(:comp_win_board) { double :board, winner: "X" }
   let(:opponent_win_board) { double :board, winner: "O" }
   let(:draw_board) { double :board, full?: true, winner: false }
 
   before do
     computer.symbol = "X"
-    player.symbol = "O"
   end
 
   it "can have a symbol" do
@@ -45,21 +36,13 @@ describe TicTacToe::Computer do
 
   context "during a game" do
 
-    def setup_game
-      game.add_player(computer)
-      game.add_player(player)
+    it "will choose the a corner if playing first" do
+      expect(computer.chosen_move(board)).to satisfy("be a corner") do |num|
+        [0, 2, 6, 8].include? num
+      end
     end
 
-    before do
-      setup_game
-    end
-
-
-    it "will choose the top left corner if playing first" do
-      expect(computer.chosen_move(board)).to eq 0
-    end
-
-    it "will play center if first player didn't" do
+    it "will play center if the first player took a corner" do
       board.grid = ["O", 2, 3, 4, 5, 6, 7, 8, 9]
       expect(computer.chosen_move(board)).to eq 4
     end
