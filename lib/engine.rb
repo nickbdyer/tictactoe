@@ -37,38 +37,50 @@ module TicTacToe
 
     def print_introduction
       ui.introduction
-      game_choice = ui.choose_game
-      setup_two_player_game if game_choice == "1"
-      setup_one_player_game if game_choice == "2"
-      setup_ai_game if game_choice == "3"
-      assign_symbol(game.player1)
+      setup_game_type(ui.choose_game)
+      assign_names
+      assign_symbols
       ui.show(game.board)
+    end
+
+    private
+
+    def setup_game_type(choice)
+      setup_two_player_game if choice == "1"
+      setup_one_player_game if choice == "2"
+      setup_ai_game if choice == "3"
     end
 
     def setup_two_player_game
       game.human_vs_human(ui)
-      [1,2].each { |player| assign_name(player) }
     end
 
     def setup_one_player_game
       game.human_vs_ai(ui)
       game.player2.name = "Tron" 
-      assign_name(1)
     end
 
     def setup_ai_game
       game.ai_vs_ai(ui)
       game.player1.name, game.player2.name = "Tron", "Hal 9000"
+      game.player1.symbol, game.player2.symbol = "X", "O"
     end
 
-    def assign_symbol(player)
-      game.player1.symbol = ui.mark_query(player) == "1" ? "X" : "O"
-      game.player2.symbol = game.player1.symbol == "O" ? "X" : "O"
+    def assign_names
+      game.player1.name = ui.name_query(1) unless game.player1.name
+      game.player2.name = ui.name_query(2) unless game.player2.name
     end
 
-    def assign_name(player_number)
-      game.public_send("player#{player_number}").name = ui.name_query(player_number)
+    def assign_symbols
+      return if game.player1.symbol
+      if (ui.mark_query(game.player1) == "1") 
+        game.player1.symbol, game.player2.symbol = "X", "O"
+      else
+        game.player2.symbol, game.player1.symbol = "X", "O"
+        game.active_player = game.player2
+      end
     end
+
 
   end
 end
