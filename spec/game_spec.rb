@@ -1,38 +1,37 @@
 require 'game'
 require 'spec_helper'
 
-describe Game do
+describe TicTacToe::Game do
 
   let(:board)   { double :board, available_cells: [3, 4, 5, 6, 7, 8] }
   let(:board_win)   { double :board, has_a_winner?: true}
   let(:board_draw) { double :board, full?: true , has_a_winner?: false }
   let(:player1) { double :player, symbol: "X" }
   let(:player2) { double :computer, symbol: "O" }
-  let(:game) { Game.new(board) }
+  let(:game) { TicTacToe::Game.new(board) }
 
   it "can add a player" do
     game.add_player(player1)
     expect(game.player1).to eq player1
   end
 
-  it "knows when the game is ready" do
-    add_two_players
-    expect(game.ready?).to be true
-  end
-
   it "can hold a board" do
-    game = Game.new(board)
+    game = TicTacToe::Game.new(board)
     expect(game.board).to eq board
   end
 
   it "can be reset" do
-    add_two_players
     expect(board).to receive(:clear)
     game.reset
   end
 
 
   context "at the beginning of the game" do
+
+    def add_two_players
+      game.add_player(player1)
+      game.add_player(player2)
+    end
 
     it "knows whos turn it is at " do
       add_two_players
@@ -54,12 +53,12 @@ describe Game do
     end
 
     it "knowns when there is a winner" do
-      game = Game.new(board_win)
+      game = TicTacToe::Game.new(board_win)
       expect(game).to have_a_winner
     end
 
     it "knows when it is a draw" do
-      game = Game.new(board_draw)
+      game = TicTacToe::Game.new(board_draw)
       expect(game.draw?).to be true
     end
 

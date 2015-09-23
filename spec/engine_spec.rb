@@ -9,7 +9,7 @@ describe Engine do
 
   let(:board) { TicTacToe::Board.new(3) }
   let(:output) { StringIO.new }
-  let(:game) { Game.new(board) }
+  let(:game) { TicTacToe::Game.new(board) }
 
   context "gameplay" do
 
