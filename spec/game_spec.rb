@@ -8,15 +8,28 @@ describe TicTacToe::Game do
   let(:board_draw) { double :board, full?: true , has_a_winner?: false }
   let(:player1) { double :player, symbol: "X" }
   let(:player2) { double :computer, symbol: "O" }
+  let(:ui) { double :ui }
   let(:game) { TicTacToe::Game.new(board) }
 
-  it "can add a player" do
-    game.add_player(player1)
-    expect(game.player1).to eq player1
+  it "can be initialized as a two player game" do
+    game.human_vs_human(ui)
+    expect(game.player1.class).to eq TicTacToe::Player
+    expect(game.player2.class).to eq TicTacToe::Player
+  end
+
+  it "can be initialized as a one player game" do
+    game.human_vs_ai(ui)
+    expect(game.player1.class).to eq TicTacToe::Player
+    expect(game.player2.class).to eq TicTacToe::Computer
+  end
+
+  it "can be initialized as a ai only game" do
+    game.ai_vs_ai(ui)
+    expect(game.player2.class).to eq TicTacToe::Computer
+    expect(game.player2.class).to eq TicTacToe::Computer
   end
 
   it "can hold a board" do
-    game = TicTacToe::Game.new(board)
     expect(game.board).to eq board
   end
 
@@ -28,14 +41,9 @@ describe TicTacToe::Game do
 
   context "at the beginning of the game" do
 
-    def add_two_players
-      game.add_player(player1)
-      game.add_player(player2)
-    end
-
     it "knows whos turn it is" do
-      add_two_players
-      expect(game.active_player).to eq player1
+      game.human_vs_human(ui)
+      expect(game.active_player).to eq game.player1
     end
 
   end
@@ -53,12 +61,12 @@ describe TicTacToe::Game do
     end
 
     it "knowns when there is a winner" do
-      game = TicTacToe::Game.new(board_win)
+      game = TicTacToe::Game.new(player1, player2, board_win)
       expect(game).to have_a_winner
     end
 
     it "knows when it is a draw" do
-      game = TicTacToe::Game.new(board_draw)
+      game = TicTacToe::Game.new(player1, player2, board_draw)
       expect(game.draw?).to be true
     end
 
