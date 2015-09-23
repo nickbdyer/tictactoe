@@ -9,7 +9,7 @@ require_relative 'lib/engine'
 board = TicTacToe::Board.new(3)
 game = TicTacToe::Game.new(board)
 user_interface = User_Interface.new
-engine = Engine.new(game, user_interface)
+engine = TicTacToe::Engine.new(game, user_interface)
 
 begin
   engine.start
