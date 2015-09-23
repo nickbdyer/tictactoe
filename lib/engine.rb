@@ -43,8 +43,6 @@ module TicTacToe
       ui.show(game.board)
     end
 
-    private
-
     def setup_game_type(choice)
       setup_two_player_game if choice == "1"
       setup_one_player_game if choice == "2"
