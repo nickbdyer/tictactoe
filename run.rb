@@ -6,7 +6,7 @@ require_relative 'lib/game'
 require_relative 'lib/engine'
 
 
-board = TicTacToe::Board.new(3)
+board = TicTacToe::Board.new(4)
 game = TicTacToe::Game.new(board)
 user_interface = TicTacToe::User_Interface.new
 engine = TicTacToe::Engine.new(game, user_interface)
