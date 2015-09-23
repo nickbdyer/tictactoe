@@ -6,19 +6,36 @@ module TicTacToe
     TITLE = "-------Welcome to TicTacToe-------"
     STARS = "*" * 34
     CLEAR_SCREEN = "\e[H\e[2J"
+    GRIDx3 = <<-BOX3
+    # | # | # 
+   ---|---|---
+    # | # | # 
+   ---|---|---
+    # | # | # 
+    BOX3
+
+    GRIDx4 = <<-BOX4
+    # | # | # | #
+   ---|---|---|---
+    # | # | # | #
+   ---|---|---|---
+    # | # | # | #
+   ---|---|---|---
+    # | # | # | #
+    BOX4
 
     def initialize(input = $stdin, output = $stdout)
       @input, @output = input, output
     end
 
     def show(board)
-      cells = board.grid
       output.puts CLEAR_SCREEN
-      output.puts " #{cells[0]} | #{cells[1]} | #{cells[2]} "
-      output.puts "---|---|---"
-      output.puts " #{cells[3]} | #{cells[4]} | #{cells[5]} "
-      output.puts "---|---|---"
-      output.puts " #{cells[6]} | #{cells[7]} | #{cells[8]} "
+      display_board = board.size == 9 ? GRIDx3.dup : GRIDx4.dup
+      board.grid.each do |cell|
+        display_board.sub!('#', "\e[31m#{cell}\e[0m") if cell.class == String
+        display_board.sub!('#', "\e[37m#{cell}\e[0m") if cell.class == Fixnum
+      end
+      output.puts display_board
     end
 
     def introduction

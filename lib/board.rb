@@ -2,9 +2,10 @@ module TicTacToe
   class Board
 
     attr_accessor :grid
-    attr_reader :size
+    attr_reader :size, :length
 
     def initialize(length)
+      @length = length
       @size = length**2
       @grid = []
       create_grid(size)
