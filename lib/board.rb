@@ -1,4 +1,6 @@
 module TicTacToe
+  #The board class is responsible for storing marks on the grid, and returning
+  #information for the game logic, and computer ai.
   class Board
 
     attr_reader :size, :length, :grid

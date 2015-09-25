@@ -1,4 +1,6 @@
 module TicTacToe
+  #The user interface class is responsible for user input and display output
+  #on the cli.
   class User_Interface
 
     attr_reader :input, :output

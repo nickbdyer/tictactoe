@@ -1,4 +1,6 @@
 module TicTacToe
+  #The player class is responsible for making moves, and holding individual's
+  #information.
   class Player
 
     attr_accessor :symbol, :name

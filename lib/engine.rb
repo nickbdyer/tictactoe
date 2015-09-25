@@ -1,4 +1,5 @@
 module TicTacToe
+  #The engine class is responsible for sequencing the game play and game setup.
   class Engine
 
     attr_reader :game, :ui

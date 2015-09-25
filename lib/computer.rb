@@ -1,6 +1,7 @@
 require_relative './player'
 
 module TicTacToe
+  #The computer class is responsible for making automated moves on the board"
   class Computer < TicTacToe::Player
 
     attr_reader :scored_moves, :interface
