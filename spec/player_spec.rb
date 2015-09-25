@@ -21,4 +21,14 @@ describe TicTacToe::Player do
     player.choose_move(board)
   end
 
+  it "knows if it has a symbol" do
+    player.symbol = "X"
+    expect(player).to have_a_symbol
+  end
+
+  it "knows if it has a name" do
+    player.name = "Nick"
+    expect(player).to have_a_name
+  end
+
 end

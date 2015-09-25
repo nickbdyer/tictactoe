@@ -12,5 +12,13 @@ module TicTacToe
       interface.human_move(board, self)
     end
 
+    def has_a_name?
+      name != nil
+    end
+
+    def has_a_symbol?
+      symbol != nil
+    end
+
   end
 end
