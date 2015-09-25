@@ -10,7 +10,7 @@ module TicTacToe
     end
 
     def start
-      print_introduction
+      setup_game
       play_game
     end
 
@@ -18,7 +18,11 @@ module TicTacToe
       until game.ended? do
         make_move
       end
-      ui.announce_winner(game.opponent) if game.has_a_winner?
+      play_again
+    end
+
+    def play_again
+      ui.announce_winner(game.active_player) if game.has_a_winner?
       ui.announce_draw if game.draw?
       ui.another_round? ? restart : exit(0)
     end
@@ -32,19 +36,19 @@ module TicTacToe
 
     def make_move
       game.active_player_choose_move(game.board)
-      game.switch_players
+      game.switch_players unless game.ended?
       ui.show(game.board)
     end
 
-    def print_introduction
+    def setup_game
       ui.introduction
-      setup_game_type(ui.choose_game)
+      choose_game_type(ui.choose_game)
       assign_names
       assign_symbols
       ui.show(game.board)
     end
 
-    def setup_game_type(choice)
+    def choose_game_type(choice)
       game.human_vs_human(ui) if choice == "1"
       game.human_vs_ai(ui) if choice == "2"
       game.ai_vs_ai(ui) if choice == "3"
@@ -57,13 +61,8 @@ module TicTacToe
 
     def assign_symbols
       return if game.setup?
-      game.select_first_player(first_player_query)
+      game.select_first_player(ui.mark_query(game.player1).to_i)
     end
-
-    def first_player_query
-      ui.mark_query(game.player1).to_i
-    end
-
 
   end
 end

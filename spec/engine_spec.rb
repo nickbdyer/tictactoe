@@ -19,25 +19,15 @@ describe TicTacToe::Engine do
     expect(game.player1.name).to eq "Nick"
   end
 
-  it "can assign a symbols" do
-    input = StringIO.new("1\n")
-    ui = TicTacToe::User_Interface.new(input, output)
-    engine = TicTacToe::Engine.new(game, ui)
-    game.human_vs_human(ui)
-    engine.assign_symbols
-    expect(game.player1.symbol).to eq "X"
-    expect(game.player2.symbol).to eq "O"
-  end
-
-  it "can set who plays first" do
+  it "can assign a symbols and the active player accordingly" do
     input = StringIO.new("2\n")
     ui = TicTacToe::User_Interface.new(input, output)
     engine = TicTacToe::Engine.new(game, ui)
     game.human_vs_human(ui)
     engine.assign_symbols
+    expect(game.setup?).to be true
     expect(game.active_player).to eq game.player2
   end
-
 
   context "gameplay" do
 
