@@ -1,30 +1,13 @@
+require_relative 'display_constants'
+
 module TicTacToe
   #The user interface class is responsible for user input and display output
   #on the cli.
   class User_Interface
 
+    include DisplayConstants
+
     attr_reader :input, :output
-
-    TITLE = "-------Welcome to TicTacToe-------"
-    STARS = "*" * 34
-    CLEAR_SCREEN = "\e[H\e[2J"
-    GRIDx3 = <<-BOX3
-    # | # | # 
-   ---|---|---
-    # | # | # 
-   ---|---|---
-    # | # | # 
-    BOX3
-
-    GRIDx4 = <<-BOX4
-    # | # | # | #
-   ---|---|---|---
-    # | # | # | #
-   ---|---|---|---
-    # | # | # | #
-   ---|---|---|---
-    # | # | # | #
-    BOX4
 
     def initialize(input = $stdin, output = $stdout)
       @input, @output = input, output
@@ -49,10 +32,7 @@ module TicTacToe
     end
 
     def choose_game
-      output.puts "What type of game would you like to play? Press the corresponding number and <Enter>."
-      output.puts "1. Human vs. Human"
-      output.puts "2. Human vs. Machine"
-      output.puts "3. Machine vs. Machine"
+      output.puts GAME_TYPE_CHOICE
       selection = input.gets.chomp
       until ["1", "2", "3"].include? selection do
         try_choose_game_again
@@ -62,11 +42,14 @@ module TicTacToe
     end
 
     def try_choose_game_again
-      output.puts "Don't be that guy."
+      output.puts INSULT
       output.puts STARS
-      output.puts "1. Human vs. Human"
-      output.puts "2. Human vs. Machine"
-      output.puts "3. Machine vs. Machine"
+      output.puts GAME_TYPE_CHOICE
+    end
+
+    def try_choose_mark_again
+      output.puts INSULT
+      output.puts MARK_CHOICE
     end
 
     def name_query(number)
@@ -76,9 +59,13 @@ module TicTacToe
 
     def mark_query(player)
       output.puts "#{player.name}, what mark would you like to play as?"
-      output.puts "1. X (Plays first)"
-      output.puts "2. O"
-      input.gets.chomp
+      output.puts MARK_CHOICE
+      selection = input.gets.chomp
+      until ["1", "2"].include? selection do
+        try_choose_mark_again
+        selection = input.gets.chomp
+      end
+      selection
     end
 
     def human_move(board, player)
