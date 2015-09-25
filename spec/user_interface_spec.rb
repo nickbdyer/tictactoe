@@ -1,4 +1,5 @@
 require 'user_interface'
+require 'board'
 
 describe TicTacToe::User_Interface do
 
@@ -21,6 +22,13 @@ describe TicTacToe::User_Interface do
     expect(output.string).to eq "What type of game would you like to play? Press the corresponding number and <Enter>.\n1. Human vs. Human\n2. Human vs. Machine\n3. Machine vs. Machine\n"
   end
 
+  it "can reject invalid inputs on game choice menu" do
+    input = StringIO.new("h\n120394871203948710293847\n1\n")
+    ui = TicTacToe::User_Interface.new(input, output)
+    ui.choose_game
+    expect(output.string).to include("Don't be that guy.")
+  end
+
   it "can ask for a players name" do
     input = StringIO.new("Nick\n")
     ui = TicTacToe::User_Interface.new(input, output)
@@ -35,6 +43,13 @@ describe TicTacToe::User_Interface do
     expect(output.string).to eq "Nick, what mark would you like to play as?\n1. X (Plays first)\n2. O\n"
   end
 
+  it "can reject invalid inputs on mark choice menu" do
+    input = StringIO.new("h\n120394871203948710293847\n1\n")
+    ui = TicTacToe::User_Interface.new(input, output)
+    ui.mark_query(player1)
+    expect(output.string).to include("Don't be that guy.")
+  end
+
   it "prompt a player to play" do
     input = StringIO.new("1\nn\n")
     ui = TicTacToe::User_Interface.new(input, output)
@@ -42,6 +57,15 @@ describe TicTacToe::User_Interface do
     allow(player1).to receive(:symbol)
     ui.human_move(board2x2, game.active_player)
     expect(output.string).to eq "Nick, it's your move, choose a cell by selecting a number.\n"
+  end
+
+  it "can reject invalid inputs on move choice" do
+    input = StringIO.new("h\n120394871203948710293847\n1\n")
+    ui = TicTacToe::User_Interface.new(input, output)
+    board2x2 = TicTacToe::Board.new({ :grid => [1, "X", "O", "X"] })
+    allow(player1).to receive(:symbol)
+    ui.human_move(board2x2, game.active_player)
+    expect(output.string).to include("That move is not permitted.")
   end
 
   it "can announce the winner" do
