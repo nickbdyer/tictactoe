@@ -45,21 +45,9 @@ module TicTacToe
     end
 
     def setup_game_type(choice)
-      setup_two_player_game if choice == "1"
-      setup_one_player_game if choice == "2"
-      setup_ai_game if choice == "3"
-    end
-
-    def setup_two_player_game
-      game.human_vs_human(ui)
-    end
-
-    def setup_one_player_game
-      game.human_vs_ai(ui)
-    end
-
-    def setup_ai_game
-      game.ai_vs_ai(ui)
+      game.human_vs_human(ui) if choice == "1"
+      game.human_vs_ai(ui) if choice == "2"
+      game.ai_vs_ai(ui) if choice == "3"
     end
 
     def assign_names
@@ -68,7 +56,7 @@ module TicTacToe
     end
 
     def assign_symbols
-      return if game.player1.symbol
+      return if game.setup?
       game.select_first_player(first_player_query)
     end
 

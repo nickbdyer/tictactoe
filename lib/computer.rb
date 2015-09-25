@@ -4,7 +4,14 @@ module TicTacToe
   #The computer class is responsible for making automated moves on the board"
   class Computer < TicTacToe::Player
 
+    NAMES = ["Tron", "Hal 9000", "Terminator"]
+
     attr_reader :scored_moves, :interface
+
+    def initialize(interface)
+      super
+      @name = NAMES.sample
+    end
 
     def opponent_symbol
       symbol == "X" ? "O" : "X"

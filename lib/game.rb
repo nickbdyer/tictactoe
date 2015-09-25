@@ -61,7 +61,6 @@ module TicTacToe
 
     def ai_vs_ai(ui)
       @player1, @player2 = @computer.new(ui), @computer.new(ui)
-      player1.name, player2.name = "Tron", "Hal 9000"
       select_first_player(1)
     end
 
@@ -77,6 +76,10 @@ module TicTacToe
 
     def has_a_name_for?(player)
       player.has_a_name?
+    end
+
+    def setup?
+      player1.has_a_symbol?
     end
 
   end
