@@ -69,6 +69,13 @@ describe TicTacToe::Game do
 
   context "during play" do
 
+    it "can initiate a player to make a choice" do
+      game.human_vs_human(ui)
+      game.player1_plays_first
+      expect(game.active_player).to receive(:choose_move)
+      game.active_player_choose_move(board)
+    end
+
     it "knows if a move is valid" do
       allow(board).to receive(:can_mark?).with(1).and_return(false)
       expect(game.valid_move?(1)).to be false

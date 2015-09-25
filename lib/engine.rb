@@ -30,7 +30,7 @@ module TicTacToe
     end
 
     def make_move
-      game.active_player.choose_move(game.board)
+      game.active_player_choose_move(game.board)
       game.switch_players
       ui.show(game.board)
     end

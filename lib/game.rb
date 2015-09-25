@@ -37,6 +37,10 @@ module TicTacToe
       has_a_winner? || draw?
     end
 
+    def active_player_choose_move(board)
+      active_player.choose_move(board)
+    end
+
     def valid_move?(position)
       board.can_mark?(position) && position >= 0
     end
