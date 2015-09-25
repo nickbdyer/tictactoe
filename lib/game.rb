@@ -66,7 +66,7 @@ module TicTacToe
 
     def player2_plays_first
       player1.symbol, player2.symbol = "O", "X"
-      active_player = player2
+      @active_player = player2
     end
 
     def name_player(player, name)
