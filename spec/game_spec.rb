@@ -6,7 +6,7 @@ describe TicTacToe::Game do
   let(:board)   { double :board, available_cells: [3, 4, 5, 6, 7, 8] }
   let(:board_win)   { double :board, has_a_winner?: true}
   let(:board_draw) { double :board, full?: true , has_a_winner?: false }
-  let(:player1) { double :player, symbol: "X" }
+  let(:player1) { double :player, symbol: "X", name: "Nick" }
   let(:player2) { double :computer, symbol: "O" }
   let(:ui) { double :ui }
   let(:game) { TicTacToe::Game.new(board) }
@@ -41,9 +41,28 @@ describe TicTacToe::Game do
 
   context "at the beginning of the game" do
 
-    it "knows whos turn it is" do
+    before do
+      game.human_vs_human(ui)
+    end
+
+    it "knows whos turn it is by default" do
       game.human_vs_human(ui)
       expect(game.active_player).to eq game.player1
+    end
+
+    it "can switch the active_player" do
+      game.human_vs_human(ui)
+      game.player2_plays_first
+      expect(game.active_player).to eq game.player2
+    end
+
+    it "knows if a player has a name" do
+      expect(game.has_a_name_for?(player1)).to be true
+    end
+
+    it "can assign player names" do
+      expect(player1).to receive(:name=).with("Nick")
+      game.name_player(player1, "Nick")
     end
 
   end

@@ -62,8 +62,8 @@ module TicTacToe
     end
 
     def assign_names
-      game.name_player(game.player1, ui.name_query(1)) unless game.has_a_name?(game.player1)
-      game.name_player(game.player2, ui.name_query(2)) unless game.has_a_name?(game.player2)
+      game.name_player(game.player1, ui.name_query(1)) unless game.has_a_name_for?(game.player1)
+      game.name_player(game.player2, ui.name_query(2)) unless game.has_a_name_for?(game.player2)
     end
 
     def assign_symbols
