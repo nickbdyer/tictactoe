@@ -78,7 +78,7 @@ module TicTacToe
     end
 
     def has_a_name_for?(player)
-      !player.name.nil?
+      player.has_a_name?
     end
 
   end
