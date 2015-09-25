@@ -52,7 +52,7 @@ describe TicTacToe::Game do
 
     it "can switch the active_player" do
       game.human_vs_human(ui)
-      game.player2_plays_first
+      game.select_first_player(2)
       expect(game.active_player).to eq game.player2
     end
 
@@ -71,7 +71,7 @@ describe TicTacToe::Game do
 
     it "can initiate a player to make a choice" do
       game.human_vs_human(ui)
-      game.player1_plays_first
+      game.select_first_player(1)
       expect(game.active_player).to receive(:choose_move)
       game.active_player_choose_move(board)
     end

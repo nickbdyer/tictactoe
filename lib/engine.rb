@@ -69,11 +69,11 @@ module TicTacToe
 
     def assign_symbols
       return if game.player1.symbol
-      player_one_chose_x? ? game.player1_plays_first : game.player2_plays_first
+      game.select_first_player(first_player_query)
     end
 
-    def player_one_chose_x?
-      (ui.mark_query(game.player1) == "1") 
+    def first_player_query
+      ui.mark_query(game.player1).to_i
     end
 
 
