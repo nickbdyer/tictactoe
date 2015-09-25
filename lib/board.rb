@@ -1,14 +1,12 @@
 module TicTacToe
   class Board
 
-    attr_accessor :grid
-    attr_reader :size, :length
+    attr_reader :size, :length, :grid
 
-    def initialize(length)
-      @length = length
+    def initialize(args)
+      @length = args[:length] || 3
       @size = length**2
-      @grid = []
-      create_grid(size)
+      @grid = args[:grid] ? process_grid(args[:grid]) : create_grid(size)
     end
 
     def mark(cell, symbol)
@@ -42,7 +40,7 @@ module TicTacToe
     end
 
     def clear
-      create_grid(size) 
+      @grid = create_grid(size) 
     end
 
     private
@@ -72,7 +70,13 @@ module TicTacToe
     end
 
     def create_grid(size)
-      @grid = (1..size).to_a
+      (1..size).to_a
+    end
+
+    def process_grid(grid)
+      @size = grid.length
+      @length = Math::sqrt(size)
+      grid
     end
 
   end

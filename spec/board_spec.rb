@@ -2,12 +2,17 @@ require 'board'
 
 describe TicTacToe::Board do
 
-  let(:board) { TicTacToe::Board.new(3) }
+  let(:board) { TicTacToe::Board.new({ :length => 3 }) }
   let(:player1) { double :player, symbol: "X" }
   let(:player2) { double :player, symbol: "O" }
 
   it "can be initialized a size" do
     expect(board.grid.length).to eq 9
+  end
+
+  it "can be initalized with a board" do
+    board = TicTacToe::Board.new({ :grid => [1, 2, 3,"X", 5, 6, 7, 8, 9] })
+    expect(board.grid).to eq [1, 2, 3,"X", 5, 6, 7, 8, 9]
   end
 
   it "can send a mark to a cell" do
