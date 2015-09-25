@@ -100,14 +100,9 @@ module TicTacToe
       output.puts "If you'd like to play again type 'y', or any other letter to quit."
     end
 
-    def bad_move
-      output.puts "Please enter a valid position."
-    end
-
     def another_round?
       input.gets.chomp == "y"
     end
-
 
   end
 end
