@@ -42,10 +42,6 @@ module TicTacToe
       active_player.choose_move(board)
     end
 
-    def valid_move?(position)
-      board.can_mark?(position) && position >= 0
-    end
-
     def switch_players
       active_player == player1 ? @active_player = player2 : @active_player = player1
     end

@@ -76,16 +76,6 @@ describe TicTacToe::Game do
       game.active_player_choose_move(board)
     end
 
-    it "knows if a move is valid" do
-      allow(board).to receive(:can_mark?).with(1).and_return(false)
-      expect(game.valid_move?(1)).to be false
-    end
-
-    it "knows if a position is within range" do
-      allow(board).to receive(:can_mark?).with(15).and_return(false)
-      expect(game.valid_move?(15)).to be false
-    end
-
     it "knowns when there is a winner" do
       game = TicTacToe::Game.new(player1, player2, board_win)
       expect(game).to have_a_winner
