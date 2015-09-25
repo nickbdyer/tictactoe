@@ -2,7 +2,7 @@ require 'board'
 
 describe TicTacToe::Board do
 
-  let(:board) { TicTacToe::Board.new({ :length => 3 }) }
+  let(:board) { TicTacToe::Board.new({}) }
   let(:player1) { double :player, symbol: "X" }
   let(:player2) { double :player, symbol: "O" }
 

@@ -5,7 +5,7 @@ require 'game'
 
 describe TicTacToe::Engine do
 
-  let(:board) { TicTacToe::Board.new(3) }
+  let(:board) { TicTacToe::Board.new({})}
   let(:output) { StringIO.new }
   let(:game) { TicTacToe::Game.new(board) }
 
