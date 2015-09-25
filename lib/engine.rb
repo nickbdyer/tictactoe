@@ -55,28 +55,24 @@ module TicTacToe
 
     def setup_one_player_game
       game.human_vs_ai(ui)
-      game.player2.name = "Tron" 
     end
 
     def setup_ai_game
       game.ai_vs_ai(ui)
-      game.player1.name, game.player2.name = "Tron", "Hal 9000"
-      game.player1.symbol, game.player2.symbol = "X", "O"
     end
 
     def assign_names
-      game.player1.name = ui.name_query(1) unless game.player1.name
-      game.player2.name = ui.name_query(2) unless game.player2.name
+      game.name_player(game.player1, ui.name_query(1)) unless game.has_a_name?(game.player1)
+      game.name_player(game.player2, ui.name_query(2)) unless game.has_a_name?(game.player2)
     end
 
     def assign_symbols
       return if game.player1.symbol
-      if (ui.mark_query(game.player1) == "1") 
-        game.player1.symbol, game.player2.symbol = "X", "O"
-      else
-        game.player2.symbol, game.player1.symbol = "X", "O"
-        game.active_player = game.player2
-      end
+      player_one_chose_x? ? game.player1_plays_first : game.player2_plays_first
+    end
+
+    def player_one_chose_x?
+      (ui.mark_query(game.player1) == "1") 
     end
 
 

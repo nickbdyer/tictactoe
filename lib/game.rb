@@ -51,10 +51,31 @@ module TicTacToe
 
     def human_vs_ai(ui)
       @player1, @player2 = @player.new(ui), @computer.new(ui)
+      player2.name = "Tron"
     end
 
     def ai_vs_ai(ui)
       @player1, @player2 = @computer.new(ui), @computer.new(ui)
+      player1.name, player2.name = "Tron", "Hal 9000"
+      player1_plays_first
     end
+
+    def player1_plays_first
+      player1.symbol, player2.symbol = "X", "O"
+    end
+
+    def player2_plays_first
+      player1.symbol, player2.symbol = "O", "X"
+      active_player = player2
+    end
+
+    def name_player(player, name)
+      player.name = name
+    end
+
+    def has_a_name?(player)
+      player.name
+    end
+
   end
 end
