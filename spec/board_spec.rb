@@ -6,8 +6,15 @@ describe TicTacToe::Board do
   let(:player1) { double :player, symbol: "X" }
   let(:player2) { double :player, symbol: "O" }
 
-  it "can be initialized a size" do
+  it "can be initialized and will default to 3x3 grid" do
+    expect(board.grid).to eq [1, 2, 3, 4, 5, 6, 7, 8, 9]
     expect(board.grid.length).to eq 9
+  end
+
+  it "can be initialized a length" do
+    board = TicTacToe::Board.new({ :length => 4 })
+    expect(board.grid).to eq [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    expect(board.grid.length).to eq 16
   end
 
   it "can be initalized with a board" do
