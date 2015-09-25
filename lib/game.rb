@@ -18,10 +18,6 @@ module TicTacToe
       @active_player ||= player1
     end
 
-    def opponent
-      active_player == player1 ? player2 : player1
-    end
-
     def has_a_winner?
       board.has_a_winner?
     end

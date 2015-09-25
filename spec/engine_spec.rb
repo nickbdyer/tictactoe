@@ -57,11 +57,10 @@ describe TicTacToe::Engine do
     end
 
     it "can reset the game" do
-      input = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\ny\n")
+      input = StringIO.new("1\nNick\nRach\n1\n1\n4\n2\n5\n3\ny\n1\n4\n2\n5\n3\nn\n")
       ui = TicTacToe::User_Interface.new(input, output)
       engine = TicTacToe::Engine.new(game, ui)
-      expect(engine).to receive(:restart)
-      engine.start
+      expect{engine.start}.to raise_error(SystemExit)
     end
   end
 
