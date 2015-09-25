@@ -37,9 +37,22 @@ describe TicTacToe::Board do
     expect(board.available_cells).to eq [4, 5, 6, 7, 8]
   end
 
+  it "knows the indexes of the corner cells" do
+    expect(board.corners).to eq [0, 2, 6, 8]
+  end
+
+  it "knows the indexes of the corner cells" do
+    board = TicTacToe::Board.new({ :length => 4 })
+    expect(board.corners).to eq [0, 3, 12, 15]
+  end
+
   it "knows when the board is full" do
     (0..8).each { |num| board.mark(num, player1.symbol) }
     expect(board.full?).to be true
+  end
+
+  it "knows when the board is empty" do
+    expect(board.empty?).to be true
   end
 
   it "knows if there are 3 Xs in a row" do

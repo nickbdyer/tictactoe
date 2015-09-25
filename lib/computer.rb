@@ -14,12 +14,20 @@ module TicTacToe
     end
 
     def chosen_move(board)
-      return [0, 2, 6, 8].sample if board.available_cells.length == board.size
+      return board.corners.sample if board.empty?
       @scored_moves = {}
       negamax(board)
       scored_moves.max_by(&:last).first
     end
 
+    def score(board, depth)
+      return (10.0 / depth) if board.winner == symbol
+      return (-10.0 / depth) if board.winner == opponent_symbol
+      return 0 if board.full?
+    end
+
+    private
+    
     def negamax(board, depth = 0, α = -10, β = 10, color = 1)
       return color * score(board, depth) if board.full? || board.has_a_winner?
       bestValue = -10
@@ -35,12 +43,6 @@ module TicTacToe
         end
       end
       bestValue
-    end
-
-    def score(board, depth)
-      return (10.0 / depth) if board.winner == symbol
-      return (-10.0 / depth) if board.winner == opponent_symbol
-      return 0 if board.full?
     end
 
   end

@@ -18,12 +18,20 @@ module TicTacToe
       available_cells.length == 0
     end
 
+    def empty?
+      available_cells.length == size
+    end
+
     def can_mark?(cell_index)
       grid[cell_index].is_a? Fixnum
     end
 
     def available_cells
       (0..size - 1).to_a.keep_if { |cell| can_mark?(cell) }
+    end
+
+    def corners
+      [0, (length - 1), (size - length), (size - 1)]
     end
 
     def has_a_winner?
