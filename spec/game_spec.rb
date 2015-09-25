@@ -6,7 +6,7 @@ describe TicTacToe::Game do
   let(:board)   { double :board, available_cells: [3, 4, 5, 6, 7, 8] }
   let(:board_win)   { double :board, has_a_winner?: true}
   let(:board_draw) { double :board, full?: true , has_a_winner?: false }
-  let(:player1) { double :player, symbol: "X", name: "Nick" }
+  let(:player1) { double :player, symbol: "X", name: "Nick", has_a_name?: true }
   let(:player2) { double :computer, symbol: "O" }
   let(:ui) { double :ui }
   let(:game) { TicTacToe::Game.new(board) }
