@@ -2,8 +2,8 @@ require 'user_interface'
 
 describe TicTacToe::User_Interface do
 
-  let(:game) { double :game, turn: player1, winner: player1 }
-  let(:board) { double :board }
+  let(:game) { double :game, active_player: player1, winner: player1 }
+  let(:board) { double :board, available_cells: [1] }
   let(:player1) { double :player, name: "Nick"}
   let(:input) { StringIO.new }
   let(:output) { StringIO.new }
@@ -36,12 +36,12 @@ describe TicTacToe::User_Interface do
   end
 
   it "prompt a player to play" do
-    input = StringIO.new("1\n")
+    input = StringIO.new("1\nn\n")
     ui = TicTacToe::User_Interface.new(input, output)
+    board2x2 = TicTacToe::Board.new({ :grid => [1, "X", "O", "X"] })
     allow(player1).to receive(:symbol)
-    allow(board).to receive(:mark)
-    ui.human_move(board, game.turn)
-    expect(output.string).to eq "Nick, it's your move, choose a cell from 1-9\n"
+    ui.human_move(board2x2, game.active_player)
+    expect(output.string).to eq "Nick, it's your move, choose a cell by selecting a number.\n"
   end
 
   it "can announce the winner" do

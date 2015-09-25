@@ -49,7 +49,13 @@ module TicTacToe
 
     def try_choose_mark_again
       output.puts INSULT
+      output.puts STARS
       output.puts MARK_CHOICE
+    end
+
+    def try_choose_move_again
+      output.puts ILLEGAL_MOVE
+      output.puts STARS
     end
 
     def name_query(number)
@@ -69,8 +75,14 @@ module TicTacToe
     end
 
     def human_move(board, player)
-      output.puts "#{player.name}, it's your move, choose a cell from 1-9"
-      board.mark((input.gets.chomp.to_i) - 1, player.symbol)
+      output.puts "#{player.name}, it's your move, choose a cell by selecting a number."
+      selection = input.gets.chomp.to_i - 1
+      until board.available_cells.include? selection do
+        try_choose_move_again
+        output.puts "#{player.name}, it's your move, choose a cell by selecting a number."
+        selection = input.gets.chomp.to_i - 1
+      end
+      board.mark(selection, player.symbol)
     end
 
     def computer_move(board, move, computer)
