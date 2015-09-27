@@ -13,25 +13,8 @@ module TicTacToe
       @name = NAMES.sample
     end
 
-    def opponent_symbol
-      symbol == "X" ? "O" : "X"
-    end
-
     def choose_move(board)
       interface.computer_move(board, chosen_move(board), self)
-    end
-
-    def chosen_move(board)
-      return board.corners.sample if board.empty?
-      @scored_moves = {}
-      negamax(board)
-      scored_moves.max_by(&:last).first
-    end
-
-    def score(board, depth)
-      return (10.0 / depth) if board.winner == symbol
-      return (-10.0 / depth) if board.winner == opponent_symbol
-      return 0 if board.full?
     end
 
     private
@@ -51,6 +34,23 @@ module TicTacToe
         end
       end
       bestValue
+    end
+
+    def opponent_symbol
+      symbol == "X" ? "O" : "X"
+    end
+
+    def chosen_move(board)
+      return board.corners.sample if board.empty?
+      @scored_moves = {}
+      negamax(board)
+      scored_moves.max_by(&:last).first
+    end
+
+    def score(board, depth)
+      return (10.0 / depth) if board.winner == symbol
+      return (-10.0 / depth) if board.winner == opponent_symbol
+      return 0 if board.full?
     end
 
   end

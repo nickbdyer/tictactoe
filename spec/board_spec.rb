@@ -27,11 +27,6 @@ describe TicTacToe::Board do
     expect(board.grid[0]).to eq "X"
   end
 
-  it "knows when a cell is marked" do
-    board.mark(0, player1)
-    expect(board.can_mark?(0)).to be false
-  end
-
   it "knows which cells are unmarked" do
     (0..3).each { |cell| board.mark(cell, player1.symbol) }
     expect(board.available_cells).to eq [4, 5, 6, 7, 8]
