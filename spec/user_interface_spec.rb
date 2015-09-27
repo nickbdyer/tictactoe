@@ -72,14 +72,14 @@ describe TicTacToe::User_Interface do
     input = StringIO.new("n\n")
     ui = TicTacToe::User_Interface.new(input, output)
     ui.announce_winner(player1)
-    expect(output.string).to eq "Nick is the winner.\nIf you'd like to play again type 'y', or any other letter to quit.\n"
+    expect(output.string).to eq "Nick is the winner.\n"
   end
 
   it "can announce a draw" do
     input = StringIO.new("n\n")
     ui = TicTacToe::User_Interface.new(input, output)
     ui.announce_draw
-    expect(output.string).to eq "It is a draw!\nIf you'd like to play again type 'y', or any other letter to quit.\n"
+    expect(output.string).to eq "It is a draw!\n"
   end
 
 end
