@@ -53,7 +53,8 @@ module TicTacToe
     end
 
     def computer_move(board, move, computer)
-      output.puts "#{computer.name} has made a move"
+      output.puts "#{computer.name} is thinking."
+      sleep 1 unless ENV['RUBY_ENV'] == "test"
       board.mark(move, computer.symbol)
     end
 

@@ -7,6 +7,8 @@ require_relative 'lib/computer'
 require_relative 'lib/game'
 require_relative 'lib/engine'
 
+ENV['RUBY_ENV'] = "production"
+
 length = ARGV[0] || "3"
 
 begin
