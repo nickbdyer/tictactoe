@@ -23,12 +23,8 @@ module TicTacToe
 
     def show(board)
       output.puts CLEAR_SCREEN
-      display_board = board.size == 9 ? GRIDx3.dup : GRIDx4.dup
-      board.grid.each do |cell|
-        display_board.sub!('#', "\e[31m#{cell}\e[0m") if cell.class == String
-        display_board.sub!('#', "\e[37m#{cell}\e[0m") if cell.class == Fixnum
-      end
-      output.puts display_board
+      display_board = (Object.const_get "DisplayConstants::GRIDx#{board.length}").dup
+      output.puts colour_board(board, display_board)
     end
 
     def choose_game
@@ -102,5 +98,13 @@ module TicTacToe
       user_input
     end
 
+    def colour_board(game_board, display_board)
+      game_board.grid.each do |cell|
+        display_board.sub!('#', "\e[31m#{cell}\e[0m") if cell.class == String
+        display_board.sub!('#', "\e[37m#{cell}\e[0m") if cell.class == Fixnum
+      end
+      display_board
+    end
   end
+
 end

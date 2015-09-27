@@ -3,6 +3,13 @@ module DisplayConstants
     TITLE = "-------Welcome to TicTacToe-------"
     STARS = "*" * 34
     CLEAR_SCREEN = "\e[H\e[2J"
+
+    GRIDx2 = <<-BOX2
+    # | #
+   ---|---
+    # | #
+    BOX2
+
     GRIDx3 = <<-BOX3
     # | # | # 
    ---|---|---
@@ -12,13 +19,13 @@ module DisplayConstants
     BOX3
 
     GRIDx4 = <<-BOX4
-    # | # | # | #
-   ---|---|---|---
-    # | # | # | #
-   ---|---|---|---
-    # | # | # | #
-   ---|---|---|---
-    # | # | # | #
+    #  | #  | #  | # 
+   ----|----|----|----
+    #  | #  | #  | # 
+   ----|----|----|----
+    #  | #  | #  | # 
+   ----|----|----|----
+    #  | #  | #  | # 
     BOX4
 
     GAME_TYPE_CHOICE = <<-CHOICE

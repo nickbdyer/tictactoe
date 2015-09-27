@@ -72,11 +72,11 @@ module TicTacToe
     end
 
     def left_to_right_diagonal
-      (0..2).collect { |i| rows[i][i] } 
+      (0..(length - 1)).collect { |i| rows[i][i] } 
     end
 
     def right_to_left_diagonal
-      (0..2).collect { |i| rows[i].reverse[i] }
+      (0..(length - 1)).collect { |i| rows[i].reverse[i] }
     end
 
     def create_grid(size)
