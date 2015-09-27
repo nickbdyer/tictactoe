@@ -9,7 +9,7 @@ require_relative 'lib/engine'
 
 
 begin
-  TicTacToe::Engine.new(TicTacToe::Game.new(TicTacToe::Board.new({ :length => 2 })), 
+  TicTacToe::Engine.new(TicTacToe::Game.new(TicTacToe::Board.new({ :length => 4 })), 
                         TicTacToe::User_Interface.new).start
 #rescue NoMethodError
 rescue Interrupt
