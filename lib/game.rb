@@ -2,7 +2,7 @@ require_relative 'player'
 require_relative 'computer'
 
 module TicTacToe
-  #The game class is responsible for tictactoe logic, and player flow"
+  #The game class is responsible for tictactoe logic, and player management.
   class Game
 
     attr_reader :player1, :player2, :board
