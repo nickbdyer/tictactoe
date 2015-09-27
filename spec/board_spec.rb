@@ -9,17 +9,59 @@ describe TicTacToe::Board do
   it "can be initialized and will default to 3x3 grid" do
     expect(board.grid).to eq [1, 2, 3, 4, 5, 6, 7, 8, 9]
     expect(board.grid.length).to eq 9
+    expect(board.length).to eq 3
   end
 
-  it "can be initialized a length" do
-    board = TicTacToe::Board.new({ :length => 4 })
-    expect(board.grid).to eq [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    expect(board.grid.length).to eq 16
+  context "initialization with length" do
+
+    let(:board) { TicTacToe::Board.new({ :length => 4 }) }
+
+    it "can be initialized" do
+      expect(board.grid).to eq [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    end
+
+    it "is empty upon initialization" do
+      expect(board.empty?).to be true
+    end
+
+    it "has a size representing the number of grid cells" do
+      expect(board.size).to eq 16
+    end
+
+    it "has an integer length" do
+      expect(board.length).to eql 4
+      expect(board.length).not_to eql 4.0
+    end
+
+    it "has an integer size" do
+      board = TicTacToe::Board.new({ :length => 4.0 })
+      expect(board.size).to eql 16
+      expect(board.size).not_to eql 16.0
+    end
+
   end
 
-  it "can be initalized with a board" do
-    board = TicTacToe::Board.new({ :grid => [1, 2, 3,"X", 5, 6, 7, 8, 9] })
-    expect(board.grid).to eq [1, 2, 3,"X", 5, 6, 7, 8, 9]
+  context "initialized with grid" do
+
+    let(:board) { TicTacToe::Board.new({ :grid => [1, 2, 3,"X", 5, 6, 7, 8, 9] }) }
+
+    it "can be initalized with a board" do
+      expect(board.grid).to eq [1, 2, 3,"X", 5, 6, 7, 8, 9]
+    end
+
+    it "has a size representing the number of grid cells" do
+      expect(board.size).to eq 9
+    end
+
+    it "has a length representing the width of the grid" do
+      expect(board.length).to eq 3
+    end
+
+    it "has an integer length" do
+      expect(board.length).to eql 3
+      expect(board.length).not_to eql 3.0
+    end
+
   end
 
   it "can send a mark to a cell" do

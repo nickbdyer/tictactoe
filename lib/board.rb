@@ -7,7 +7,7 @@ module TicTacToe
 
     def initialize(args)
       @length = args[:length] || 3
-      @size = length**2
+      @size = (length**2).to_i
       @grid = args[:grid] ? process_grid(args[:grid]) : create_grid(size)
     end
 
