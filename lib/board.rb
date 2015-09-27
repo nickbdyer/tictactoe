@@ -85,7 +85,7 @@ module TicTacToe
 
     def process_grid(grid)
       @size = grid.length
-      @length = Math::sqrt(size)
+      @length = Math::sqrt(size).to_i
       grid
     end
 

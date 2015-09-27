@@ -6,6 +6,7 @@ describe TicTacToe::User_Interface do
   let(:game) { double :game, active_player: player1, winner: player1 }
   let(:board) { double :board, available_cells: [1] }
   let(:player1) { double :player, name: "Nick"}
+  let(:computer) { double :computer, name: "Tron", symbol: "X" }
   let(:input) { StringIO.new }
   let(:output) { StringIO.new }
   let(:ui) { TicTacToe::User_Interface.new(input, output) }
@@ -68,6 +69,18 @@ describe TicTacToe::User_Interface do
     expect(output.string).to include("That move is not permitted.")
   end
 
+  it "can display a computer move notification" do
+    allow(board).to receive(:mark)
+    ui.computer_move(board, 1, computer)
+    expect(output.string).to include("Tron is thinking.\n")
+  end
+
+  it "can show the board" do
+    board2x2 = TicTacToe::Board.new({ :grid => [1, "X", "O", "X"] })
+    ui.show(board2x2)
+    expect(output.string).to eq "\e[H\e[2J\n    \e[37m1\e[0m | \e[31mX\e[0m\n   ---|---\n    \e[34mO\e[0m | \e[31mX\e[0m\n"
+  end
+
   it "can announce the winner" do
     input = StringIO.new("n\n")
     ui = TicTacToe::User_Interface.new(input, output)
@@ -80,6 +93,14 @@ describe TicTacToe::User_Interface do
     ui = TicTacToe::User_Interface.new(input, output)
     ui.announce_draw
     expect(output.string).to eq "It is a draw!\n"
+  end
+
+  it "can ask if the player wants a new game" do
+    input = StringIO.new("n\n")
+    ui = TicTacToe::User_Interface.new(input, output)
+    board2x2 = TicTacToe::Board.new({ :grid => [1, "X", "O", "X"] })
+    ui.another_round?
+    expect(output.string).to eq "If you'd like to play again type 'y', or any other letter to quit.\n"
   end
 
 end

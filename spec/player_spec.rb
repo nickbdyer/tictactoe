@@ -26,9 +26,17 @@ describe TicTacToe::Player do
     expect(player).to have_a_symbol
   end
 
+  it "knows if it doesn't have a symbol" do
+    expect(player).not_to have_a_symbol
+  end
+
   it "knows if it has a name" do
     player.name = "Nick"
     expect(player).to have_a_name
+  end
+
+  it "knows if it doesn't have a name" do
+    expect(player).not_to have_a_name
   end
 
 end
