@@ -7,11 +7,7 @@ This is playable on the command line.
 The final version of the game uses the Negamax Algorithm with alpha-beta
 pruning. Older commits show that I tried to incorporate move ordering, but
 benchmarks showed my implementation to be detrimental and as such was not kept
-in the ai code. There is potential to add transpositional tables, however,
-I didn't feel as though the game was suffering due to ai computational time, so
-opted not to implement this. 
-
-All in all this was a great challenge, and a lot of fun to implement. 
+in the ai code. 
 
 Clone the repo:
 
@@ -23,8 +19,17 @@ To play the game:
 
 ```shell
 $ cd tictactoe
-$ ruby run.rb
+$ ./run.rb
 ```
+It is also possible to run the game 2x2 and 4x4 sized boards:
+
+```shell
+$ ./run.rb 2
+$ ./run.rb 4
+```
+*Note:* 2x2 games are very boring. And until I implement transposition tables,
+the 4x4 Ai is extremely slow (at least 15 minutes, I got bored and quit) at the
+start of the game. 
 
 To run the test suite:
 ```shell
