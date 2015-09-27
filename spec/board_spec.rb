@@ -27,6 +27,15 @@ describe TicTacToe::Board do
     expect(board.grid[0]).to eq "X"
   end
 
+  it "knows if a cell is empty and can be marked" do
+    expect(board.send(:can_mark?, 0)).to be true
+  end
+
+  it "knows if a cell is full and can not be marked" do
+    board.mark(0, player1.symbol)
+    expect(board.send(:can_mark?, 0)).to be false
+  end
+
   it "knows which cells are unmarked" do
     (0..3).each { |cell| board.mark(cell, player1.symbol) }
     expect(board.available_cells).to eq [4, 5, 6, 7, 8]
@@ -36,7 +45,7 @@ describe TicTacToe::Board do
     expect(board.corners).to eq [0, 2, 6, 8]
   end
 
-  it "knows the indexes of the corner cells" do
+  it "knows the indexes of the corner cells on a larger board" do
     board = TicTacToe::Board.new({ :length => 4 })
     expect(board.corners).to eq [0, 3, 12, 15]
   end
@@ -46,8 +55,18 @@ describe TicTacToe::Board do
     expect(board.full?).to be true
   end
 
+  it "knows when the board is not full" do
+    (0..4).each { |num| board.mark(num, player1.symbol) }
+    expect(board.full?).to be false
+  end
+
   it "knows when the board is empty" do
     expect(board.empty?).to be true
+  end
+
+  it "knows when the board is not empty" do
+    (0..4).each { |num| board.mark(num, player1.symbol) }
+    expect(board.empty?).to be false
   end
 
   it "knows if there are 3 Xs in a row" do

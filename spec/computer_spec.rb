@@ -66,21 +66,21 @@ describe TicTacToe::Computer do
     expect(computer.send(:chosen_move, board)).to eq 2
   end
 
-  #it "knows what the opponents symbol is" do
-    #expect(computer.opponent_symbol).to eq "O"
-  #end
+  it "knows what the opponents symbol is" do
+    expect(computer.send(:opponent_symbol)).to eq "O"
+  end
 
-  #it "will score a board with 10 if it wins" do
-    #expect(computer.score(comp_win_board, 1)).to eq 10
-  #end
+  it "will score a board with 10 if it wins" do
+    expect(computer.send(:score, comp_win_board, 1)).to eq 10
+  end
 
-  #it "will score a board with -10 if it loses" do
-    #expect(computer.score(opponent_win_board, 1)).to eq -10
-  #end
+  it "will score a board with -10 if it loses" do
+    expect(computer.send(:score, opponent_win_board, 1)).to eq -10
+  end
 
-  #it "will score a board with 0 if it is a draw" do
-    #expect(computer.score(draw_board, 0)).to eq 0
-  #end
+  it "will score a board with 0 if it is a draw" do
+    expect(computer.send(:score,draw_board, 0)).to eq 0
+  end
 
 end
 
