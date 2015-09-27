@@ -101,7 +101,8 @@ module TicTacToe
 
     def colour_board(game_board, display_board)
       game_board.grid.each do |cell|
-        display_board.sub!('#', "\e[31m#{cell}\e[0m") if cell.class == String
+        display_board.sub!('#', "\e[31m#{cell}\e[0m") if cell == "X"
+        display_board.sub!('#', "\e[34m#{cell}\e[0m") if cell == "O"
         display_board.sub!('#', "\e[37m#{cell}\e[0m") if cell.class == Fixnum
       end
       display_board
